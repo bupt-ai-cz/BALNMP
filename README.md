@@ -8,6 +8,8 @@ This repo is the official implementation of our paper "Predicting Axillary Lymph
 
 ## Data
 
+[WSI Samples](https://github.com/bupt-ai-cz/BALNMP/tree/main/WSI%20Samples)
+
 ## Demo Software
 
 [Download Link](https://drive.google.com/drive/folders/1ItKCldu8vbHhbZvhXic-11Ei-NVGBZU2?usp=sharing)
