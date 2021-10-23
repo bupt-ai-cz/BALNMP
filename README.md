@@ -4,9 +4,19 @@ This repo is the official implementation of our paper "Predicting Axillary Lymph
 
 Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/articles/10.3389/fonc.2021.759007/full), and you can also get access our paper from [MedRxiv](https://www.medrxiv.org/content/10.1101/2021.10.10.21264721).
 
+## Abstract
+
+Objectives: To develop and validate a deep learning (DL)-based primary tumor biopsy signature for predicting axillary lymph node (ALN) metastasis preoperatively in early breast cancer (EBC) patients with clinically negative ALN.
+
+Methods: A total of 1,058 EBC patients with pathologically confirmed ALN status were enrolled from May 2010 to August 2020. A DL core-needle biopsy (DL-CNB) model was built on the attention-based multiple instance-learning (AMIL) framework to predict ALN status utilizing the DL features, which were extracted from the cancer areas of digitized whole-slide images (WSIs) of breast CNB specimens annotated by two pathologists. Accuracy, sensitivity, specificity, receiver operating characteristic (ROC) curves, and areas under the ROC curve (AUCs) were analyzed to evaluate our model.
+
+Results: The best-performing DL-CNB model with VGG16_BN as the feature extractor achieved an AUC of 0.816 (95% confidence interval (CI): 0.758, 0.865) in predicting positive ALN metastasis in the independent test cohort. Furthermore, our model incorporating the clinical data, which was called DL-CNB+C, yielded the best accuracy of 0.831 (95% CI: 0.775, 0.878), especially for patients younger than 50 years (AUC: 0.918, 95% CI: 0.825, 0.971). The interpretation of DL-CNB model showed that the top signatures most predictive of ALN metastasis were characterized by the nucleus features including density (*p* = 0.015), circumference (*p* = 0.009), circularity (*p* = 0.010), and orientation (*p* = 0.012).
+
+Conclusion: Our study provides a novel DL-based biomarker on primary tumor CNB slides to predict the metastatic status of ALN preoperatively for patients with EBC.
+
 ## Data
 
-Our data includes whole slide images (WSIs) of breast cancer patients and the corresponding clinical data. According to the axillary lymph node (ALN) metastasis, patients are divided into the following 3 categories:
+Our data includes whole slide images (WSIs) of breast cancer patients and the corresponding clinical data. According to the axillary lymph node (ALN) metastasis, 1058 patients are divided into the following 3 categories:
 
 - N0: having no positive lymph nodes (655 patients, 61.9%).
 - N+(1~2): having one or two positive lymph nodes (210 patients, 19.8%).
@@ -14,7 +24,9 @@ Our data includes whole slide images (WSIs) of breast cancer patients and the co
 
 Here we have provided some WSI samples and clinical data samples, you can review our paper for more details. 
 
-For full access to the BALNMP Dataset, please contact us without hesitation, the usage of BALNMP Dataset must follow the license.
+For full access to the BALNMP Dataset, please contact us and the usage of BALNMP Dataset must follow the license.
+
+### WSI samples
 
 #### N0
 
@@ -35,7 +47,7 @@ For full access to the BALNMP Dataset, please contact us without hesitation, the
 
 ## Pre-Trained Models
 
-[Model Checkpoints](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing)
+Please download pre-trained models from [here](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing).
 
 ## Demo Software
 
