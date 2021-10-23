@@ -18,14 +18,15 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 ## Citation
 
-Please [cite](https://www.frontiersin.org/articles/10.3389/fonc.2021.759007/bibTex) our paper in your publications if it helps your research.
+Please cite our paper in your publications if it helps your research.
 
 ```
-@article{xupredicting,
+@article{xu2021predicting,
   title={Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides},
   author={Xu, Feng and Zhu, Chuang and Tang, Wenqi and Wang, Ying and Zhang, Yu and Li, Jie and Jiang, Hongchuan and Shi, Zhongyue and Liu, Jun and Jin, Mulan},
   journal={Frontiers in Oncology},
   pages={4133},
+  year={2021},
   publisher={Frontiers}
 }
 ```
