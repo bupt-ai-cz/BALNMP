@@ -10,7 +10,13 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 ## Data
 
-### WSI Samples
+Our data includes whole slide images (WSIs) of breast cancer patients and the corresponding clinical data. According to the axillary lymph node (ALN) metastasis, patients are divided into the following 3 categories:
+
+- N0: having no positive lymph nodes (655 patients, 61.9%).
+- N+(1~2): having one or two positive lymph nodes (210 patients, 19.8%).
+- N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
+
+Here we have provided some WSI samples and clinical data samples, you can review our paper for more details. For full access to the BALNMP Dataset, please contact us without hesitation, the usage of BALNMP Dataset must follow the license.
 
 #### N0
 
@@ -26,7 +32,7 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 ### Clinical Data Samples
 
-![Clinical Data Samples](imgs/clinical_data_sample.png)
+![clinical-data-sample](imgs/clinical-data-sample.png)
 
 ## Demo Software
 
@@ -58,4 +64,4 @@ This BALNMP Dataset is made freely available to academic and non-academic entiti
 
 ## Contact
 
-- email: tangwenqi@bupt.edu.cn, czhu@bupt.edu.cn,drxufeng@mail.ccmu.edu.cn
+- email: tangwenqi@bupt.edu.cn, czhu@bupt.edu.cn, drxufeng@mail.ccmu.edu.cn
