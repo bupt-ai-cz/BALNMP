@@ -16,7 +16,9 @@ Our data includes whole slide images (WSIs) of breast cancer patients and the co
 - N+(1~2): having one or two positive lymph nodes (210 patients, 19.8%).
 - N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
 
-Here we have provided some WSI samples and clinical data samples, you can review our paper for more details. For full access to the BALNMP Dataset, please contact us without hesitation, the usage of BALNMP Dataset must follow the license.
+Here we have provided some WSI samples and clinical data samples, you can review our paper for more details. 
+
+For full access to the BALNMP Dataset, please contact us without hesitation, the usage of BALNMP Dataset must follow the license.
 
 #### N0
 
