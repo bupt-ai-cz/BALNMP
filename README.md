@@ -4,13 +4,29 @@ This repo is the official implementation of our paper "Predicting Axillary Lymph
 
 Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/articles/10.3389/fonc.2021.759007/full), and you can also get access our paper from [MedRxiv](https://www.medrxiv.org/content/10.1101/2021.10.10.21264721).
 
-## Pre-trained models
+## Pre-Trained Models
 
 [Model Checkpoints](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing)
 
 ## Data
 
-[WSI Samples](https://github.com/bupt-ai-cz/BALNMP/tree/main/WSI%20Samples)
+### WSI Samples
+
+#### N0
+
+<img src="imgs/N0.png" alt="N0" style="zoom: 75%;" />
+
+#### N+(1~2)
+
+<img src="imgs/N+(1~2).png" alt="N+(1~2)" style="zoom:75%;" />
+
+#### N+(>2)
+
+<img src="imgs/N+(%EF%BC%9E2).png" alt="N+(＞2)" style="zoom:75%;" />
+
+### Clinical Data Samples
+
+![Clinical Data Samples](imgs/clinical_data_sample.png)
 
 ## Demo Software
 
@@ -31,7 +47,15 @@ Please cite our paper in your publications if it helps your research.
 }
 ```
 
+## License
+
+This BALNMP Dataset is made freely available to academic and non-academic entities for non-commercial purposes such as academic research, teaching, scientific publications, or personal experimentation. Permission is granted to use the data given that you agree to our license terms bellow:
+
+1. That you include a reference to the BALNMP Dataset in any work that makes use of the dataset. For research papers, cite our preferred publication as listed on our website; for other media cite our preferred publication as listed on our website or link to the BALNMP website.
+2. That you do not distribute this dataset or modified versions. It is permissible to distribute derivative works in as far as they are abstract representations of this dataset (such as models trained on it or additional annotations that do not directly include any of our data).
+3. That you may not use the dataset or any derivative work for commercial purposes as, for example, licensing or selling the data, or using the data with a purpose to procure a commercial gain.
+4. That all rights not expressly granted to you are reserved by us.
+
 ## Contact
 
-- email: tangwenqi@bupt.edu.cn, czhu@bupt.edu.cn
-
+- email: tangwenqi@bupt.edu.cn, czhu@bupt.edu.cn,drxufeng@mail.ccmu.edu.cn
