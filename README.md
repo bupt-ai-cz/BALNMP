@@ -4,10 +4,6 @@ This repo is the official implementation of our paper "Predicting Axillary Lymph
 
 Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/articles/10.3389/fonc.2021.759007/full), and you can also get access our paper from [MedRxiv](https://www.medrxiv.org/content/10.1101/2021.10.10.21264721).
 
-## Pre-Trained Models
-
-[Model Checkpoints](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing)
-
 ## Data
 
 Our data includes whole slide images (WSIs) of breast cancer patients and the corresponding clinical data. According to the axillary lymph node (ALN) metastasis, patients are divided into the following 3 categories:
@@ -36,9 +32,18 @@ For full access to the BALNMP Dataset, please contact us without hesitation, the
 
 ![clinical-data-sample](imgs/clinical-data-sample.png)
 
+
+## Pre-Trained Models
+
+[Model Checkpoints](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing)
+
 ## Demo Software
 
-[Download Link](https://drive.google.com/drive/folders/1ItKCldu8vbHhbZvhXic-11Ei-NVGBZU2?usp=sharing)
+We have also provided software for easily checking the performance of our model to predict ALN metastasis.
+
+Please download the software from [here](https://drive.google.com/drive/folders/1ItKCldu8vbHhbZvhXic-11Ei-NVGBZU2?usp=sharing), and check the `README.txt` for usage. Please note that this software is only used for demo, and it cannot be used for other purposes.
+
+![demo-software](imgs/demo-software.png)
 
 ## Citation
 
