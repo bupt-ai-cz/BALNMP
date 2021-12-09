@@ -1,10 +1,9 @@
 # Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides ![visitors](https://visitor-badge.glitch.me/badge?page_id=bupt-ai-cz.BALNMP)
-[Project](https://bupt-ai-cz.github.io/BALNMP/) | [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Codes%20and%20Data%20for%20Our%20Paper:%20"Predicting%20Axillary%20Lymph%20Node%20Metastasis%20in%20Early%20Breast%20Cancer"%20&url=https://github.com/bupt-ai-cz/BALNMP)
+[Arxiv](https://arxiv.org/abs/2112.02222) | [Project](https://bupt-ai-cz.github.io/BALNMP/) | [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Codes%20and%20Data%20for%20Our%20Paper:%20"Predicting%20Axillary%20Lymph%20Node%20Metastasis%20in%20Early%20Breast%20Cancer"%20&url=https://github.com/bupt-ai-cz/BALNMP)
 
+This repo is the official implementation and dataset introduction of our paper "Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides".
 
-This repo is the official implementation of our paper "Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides".
-
-Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/articles/10.3389/fonc.2021.759007/full), and you can also get access our paper from [MedRxiv](https://www.medrxiv.org/content/10.1101/2021.10.10.21264721).
+Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/articles/10.3389/fonc.2021.759007/full), and you can also get access our paper from [MedRxiv](https://www.medrxiv.org/content/10.1101/2021.10.10.21264721) or [Arxiv](https://arxiv.org/abs/2112.02222).
 
 ## Abstract
 
@@ -16,33 +15,43 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 - Conclusion: Our study provides a novel DL-based biomarker on primary tumor CNB slides to predict the metastatic status of ALN preoperatively for patients with EBC.
 
-## Data
+## Dataset
 
-Our data includes whole slide images (WSIs) of breast cancer patients and the corresponding clinical data. According to the axillary lymph node (ALN) metastasis, 1058 patients are divided into the following 3 categories:
+Our paper has introduced a new dataset that includes whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222).
+
+### Description
+
+There are a totally of 1058 patients and they are divided into the following 3 categories according to the axillary lymph node (ALN) metastasis:
 
 - N0: having no positive lymph nodes (655 patients, 61.9%).
-- N+(1~2): having one or two positive lymph nodes (210 patients, 19.8%).
+- N+(1-2): having one or two positive lymph nodes (210 patients, 19.8%).
 - N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
 
-Here we have provided some WSI samples and clinical data samples, you can review our paper for more details. 
+The dataset is collected and organized by the experienced doctors of our research group, and the tumor regions of WSIs are annotated with software [ASAP](https://github.com/computationalpathologygroup/ASAP). Please use [ASAP](https://github.com/computationalpathologygroup/ASAP) to check the detailed annotations of WSIs, and if you encounter any problems please [contact us](https://github.com/bupt-ai-cz/BALNMP#contact) without hesitation.
 
-For full access to the BALNMP Dataset, please contact us and the usage of BALNMP Dataset must follow the license.
+Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label and record date.
 
-### WSI samples
+The usage of this dataset must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license). We have used this dataset for weakly supervised classification, and we do not limit the specific task types for your research. Please note that the dataset is only used for education and research, and the usage for commercial and clinical applications is not allowed.
 
-#### N0
+### Examples
+
+Here we have provided some WSIs and clinical data. For full access to the dataset, please contact us and the usage must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license).
+
+#### WSI
+
+##### N0
 
 <img src="imgs/N0.png" alt="N0" style="zoom: 75%;" />
 
-#### N+(1~2)
+##### N+(1-2)
 
 <img src="imgs/N+(1~2).png" alt="N+(1~2)" style="zoom:75%;" />
 
-#### N+(>2)
+##### N+(>2)
 
 <img src="imgs/N+(%EF%BC%9E2).png" alt="N+(＞2)" style="zoom:75%;" />
 
-### Clinical Data Samples
+#### Clinical Data
 
 ![clinical-data-sample](imgs/clinical-data-sample.png)
 
