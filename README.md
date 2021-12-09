@@ -85,7 +85,7 @@ Here we have provided some WSIs and clinical data. For full access to the datase
 
 #### Clinical Data
 
-
+![](imgs/clinical-data.png)
 
 
 ## Pre-Trained Models
