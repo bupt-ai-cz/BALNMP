@@ -29,15 +29,15 @@ There are a totally of 1058 patients and they are divided into the following 3 c
 - N+(1-2): having one or two positive lymph nodes (210 patients, 19.8%).
 - N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
 
-Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label and record date.
+Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label.
+
+The WSIs is provided with `.png` format and the clinical data is provided with `.xlsx` format.
 
 The usage of this dataset must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license). We have used this dataset for weakly supervised classification, and we do not limit the specific task types for your research. Please note that the dataset is only used for education and research, and the usage for commercial and clinical applications is not allowed.
 
 ### Annotation
 
-The tumor regions of WSIs are annotated with software [ASAP](https://github.com/computationalpathologygroup/ASAP). Please use [ASAP](https://github.com/computationalpathologygroup/ASAP) to check the detailed annotations of WSIs, and if you encounter any problems please [contact us](https://github.com/bupt-ai-cz/BALNMP#contact) without hesitation.
-
-The `.xml` files have recorded coordinates of each point in the polygonal annotated area. For better usage, we have also provided the corresponding `.json` files with the following format, where `vertices` have recorded coordinates of each point in the polygonal annotated area.
+Annotation information is stored in `.json` with the following format, where `vertices` have recorded coordinates of each point in the polygonal annotated area.
 
 ```json
 {
@@ -61,9 +61,11 @@ The `.xml` files have recorded coordinates of each point in the polygonal annota
 }
 ```
 
-If you want to make additional annotations with [ASAP](https://github.com/computationalpathologygroup/ASAP), we have also provided the python script for converting `.xml` to `.json`, please check the codes in our repo.
+### Code for preprocessing
 
-### Examples
+We have used the codes for extracting annotated tumor regions of all WSIs and cutting patches with fixed size from all extracted annotated tumor regions, and they may be helpful for your research. Please check the code for more details.
+
+### Example
 
 Here we have provided some WSIs and clinical data. For full access to the dataset, please contact us and the usage must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license).
 
@@ -83,7 +85,7 @@ Here we have provided some WSIs and clinical data. For full access to the datase
 
 #### Clinical Data
 
-![clinical-data-sample](imgs/clinical-data-sample.png)
+
 
 
 ## Pre-Trained Models
@@ -123,5 +125,7 @@ This BALNMP Dataset is made freely available to academic and non-academic entiti
 4. That all rights not expressly granted to you are reserved by us.
 
 ## Contact
+
+If you encounter any problems please contact us without hesitation.
 
 - email: tangwenqi@bupt.edu.cn, czhu@bupt.edu.cn, drxufeng@mail.ccmu.edu.cn
