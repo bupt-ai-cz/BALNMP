@@ -53,7 +53,7 @@ The `.xml` files have recorded coordinates of each point in the polygonal annota
                     14259,
                     10657
                 ],
-                ...
+                ......
             ]
         }
     ],
