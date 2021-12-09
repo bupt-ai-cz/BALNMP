@@ -21,17 +21,47 @@ Our paper has introduced a new dataset that includes whole slide images (WSIs) o
 
 ### Description
 
+The dataset is collected and organized by the experienced doctors of our research group.
+
 There are a totally of 1058 patients and they are divided into the following 3 categories according to the axillary lymph node (ALN) metastasis:
 
 - N0: having no positive lymph nodes (655 patients, 61.9%).
 - N+(1-2): having one or two positive lymph nodes (210 patients, 19.8%).
 - N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
 
-The dataset is collected and organized by the experienced doctors of our research group, and the tumor regions of WSIs are annotated with software [ASAP](https://github.com/computationalpathologygroup/ASAP). Please use [ASAP](https://github.com/computationalpathologygroup/ASAP) to check the detailed annotations of WSIs, and if you encounter any problems please [contact us](https://github.com/bupt-ai-cz/BALNMP#contact) without hesitation.
-
 Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label and record date.
 
 The usage of this dataset must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license). We have used this dataset for weakly supervised classification, and we do not limit the specific task types for your research. Please note that the dataset is only used for education and research, and the usage for commercial and clinical applications is not allowed.
+
+### Annotation
+
+The tumor regions of WSIs are annotated with software [ASAP](https://github.com/computationalpathologygroup/ASAP). Please use [ASAP](https://github.com/computationalpathologygroup/ASAP) to check the detailed annotations of WSIs, and if you encounter any problems please [contact us](https://github.com/bupt-ai-cz/BALNMP#contact) without hesitation.
+
+The `.xml` files have recorded coordinates of each point in the polygonal annotated area. For better usage, we have also provided the corresponding `.json` files with the following format, where `vertices` have recorded coordinates of each point in the polygonal annotated area.
+
+```json
+{
+    "positive": [
+        {
+            "name": "Annotation 0",
+            "vertices": [
+                [
+                    14274,
+                    10723
+                ],
+                [
+                    14259,
+                    10657
+                ],
+                ......
+            ]
+        }
+    ],
+    "negative": []
+}
+```
+
+If you want to make additional annotations with [ASAP](https://github.com/computationalpathologygroup/ASAP), we have also provided the python script for converting `.xml` to `.json`, please check the codes in our repo.
 
 ### Examples
 
