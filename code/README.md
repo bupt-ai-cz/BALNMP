@@ -37,7 +37,7 @@ python cut_tumor_regions.py --wsi_dir_path ./WSIs --output_dir_path ./tumour-reg
 python cut_patches.py --help
 ```
 
-- cut patches with size of 256$\times$256 and the patches with blank ratio greater than 0.3 will be discarded, you can modify the parameters for your research
+- cut patches with size of ![](https://render.githubusercontent.com/render/math?math=256\times256) and the patches with blank ratio greater than 0.3 will be discarded, you can modify the parameters for your research
 
 ```bash
 python cut_patches.py --tumour_region_dir_path ./tumour-regions --size 256 --max_blank_ratio 0.3 --output_dir_path ./patches
