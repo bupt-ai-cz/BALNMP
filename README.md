@@ -63,7 +63,7 @@ Annotation information is stored in `.json` with the following format, where `ve
 
 ### Code for preprocessing
 
-We have used the codes for extracting annotated tumor regions of all WSIs and cutting patches with fixed size from all extracted annotated tumor regions, and they may be helpful for your research. Please check the code for more details.
+We have used the codes for extracting annotated tumor regions of all WSIs and cutting patches with fixed size from all extracted annotated tumor regions, and they may be helpful for your research. Please check the [code](https://github.com/bupt-ai-cz/BALNMP/tree/main/code) for more details.
 
 ### Example
 
