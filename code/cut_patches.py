@@ -70,5 +70,5 @@ if __name__ == '__main__':
                     if is_deprecated(small_image_array, args.max_blank_ratio):
                         print('\tdeprecated {}'.format(small_image_path))
                     else:
-                        cv2.imwrite(small_image_path, small_image_array)
+                        cv2.imwrite(small_image_path, small_image_array, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
                         print('\tsave {}'.format(small_image_path))

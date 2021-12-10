@@ -50,9 +50,9 @@ if __name__ == '__main__':
     os.makedirs(args.output_dir_path)
     print('create directory: {}'.format(args.output_dir_path))
 
-    for wsi_path in glob.glob(os.path.join(args.wsi_dir_path, '*.png')):
+    for wsi_path in glob.glob(os.path.join(args.wsi_dir_path, '*.jpg')):
         wsi_id = os.path.splitext(os.path.basename(wsi_path))[0]
-        json_path = wsi_path.replace('png', 'json')
+        json_path = wsi_path.replace('jpg', 'json')
 
         # create directory to store tumour regions for each WSI
         os.makedirs(os.path.join(args.output_dir_path, wsi_id))
@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
         wsi_img = cv2.imread(wsi_path)
         for i, (ann_points, bbox) in enumerate(zip(annotation_points, bboxes)):
-            tumour_save_path = os.path.join(args.output_dir_path, wsi_id, '{}_{}.png'.format(wsi_id, i))
+            tumour_save_path = os.path.join(args.output_dir_path, wsi_id, '{}_{}.jpg'.format(wsi_id, i))
 
             # extract a rectangular tumour region
             x, y, width, height = bbox
@@ -81,5 +81,5 @@ if __name__ == '__main__':
 
                 tumour_img[mask_array != 255] = FILL_COLOR  # fill irrelevant areas with solid colors
 
-            cv2.imwrite(tumour_save_path, tumour_img)
+            cv2.imwrite(tumour_save_path, tumour_img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
             print('\t save {}'.format(tumour_save_path))
