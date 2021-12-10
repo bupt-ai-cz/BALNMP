@@ -31,7 +31,7 @@ There are a totally of 1058 patients and they are divided into the following 3 c
 
 Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label.
 
-The WSIs is provided with `.png` format and the clinical data is provided with `.xlsx` format.
+The WSIs is provided with `.jpg` format and the clinical data is provided with `.xlsx` format.
 
 The usage of this dataset must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license). We have used this dataset for weakly supervised classification, and we do not limit the specific task types for your research. Please note that the dataset is only used for education and research, and the usage for commercial and clinical applications is not allowed.
 
