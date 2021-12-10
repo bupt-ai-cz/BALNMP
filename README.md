@@ -73,20 +73,25 @@ Here we have provided some WSIs and clinical data. For full access to the datase
 
 ##### N0
 
-<img src="imgs/N0.png" alt="N0" style="zoom: 75%;" />
+<div align="center">
+    <img src="imgs/N0.png" alt="N0" style="zoom: 75%;" />
+</div>
 
 ##### N+(1-2)
-
-<img src="imgs/N+(1~2).png" alt="N+(1~2)" style="zoom:75%;" />
+<div align="center">
+    <img src="imgs/N+(1~2).png" alt="N+(1-2)" style="zoom:75%;" />
+</div>
 
 ##### N+(>2)
-
-<img src="imgs/N+(%EF%BC%9E2).png" alt="N+(＞2)" style="zoom:75%;" />
+<div align="center">
+    <img src="imgs/N+(%EF%BC%9E2).png" alt="N+(>2)" style="zoom:75%;" />
+</div>
 
 #### Clinical Data
 
-![](imgs/clinical-data.png)
-
+<div align="center">
+    <img src="imgs/clinical-data.png" alt="clinical-data" style="zoom:100%;" />
+</div>
 
 ## Pre-Trained Models
 
@@ -98,7 +103,9 @@ We have also provided software for easily checking the performance of our model 
 
 Please download the software from [here](https://drive.google.com/drive/folders/1ItKCldu8vbHhbZvhXic-11Ei-NVGBZU2?usp=sharing), and check the `README.txt` for usage. Please note that this software is only used for demo, and it cannot be used for other purposes.
 
-![demo-software](imgs/demo-software.png)
+<div align="center">
+    <img src="imgs/demo-software.png" alt="demo-software" style="zoom:100%;" />
+</div>
 
 ## Citation
 
