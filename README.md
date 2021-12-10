@@ -104,7 +104,7 @@ We have also provided software for easily checking the performance of our model 
 Please download the software from [here](https://drive.google.com/drive/folders/1ItKCldu8vbHhbZvhXic-11Ei-NVGBZU2?usp=sharing), and check the `README.txt` for usage. Please note that this software is only used for demo, and it cannot be used for other purposes.
 
 <div align="center">
-    <img src="imgs/demo-software.png" alt="demo-software" style="zoom:100%;" />
+    <img src="imgs/demo-software.png" alt="demo-software" style="zoom:70%;" />
 </div>
 
 ## Citation
