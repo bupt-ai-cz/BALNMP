@@ -75,10 +75,7 @@ if __name__ == '__main__':
                 ann_points = ann_points - np.asarray([x, y])  # compute the relative coordinate of each point in an annotated region
                 ann_points = np.expand_dims(ann_points, 0)
                 cv2.fillPoly(mask_array, ann_points, color=255)
-
-                # print('tumour_img.shape: {}'.format(tumour_img.shape))
-                # print('mask_array.shape: {}'.format(mask_array.shape))
-
+                
                 tumour_img[mask_array != 255] = FILL_COLOR  # fill irrelevant areas with solid colors
 
             cv2.imwrite(tumour_save_path, tumour_img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
