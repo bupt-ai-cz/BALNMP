@@ -15,25 +15,25 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 - Conclusion: Our study provides a novel DL-based biomarker on primary tumor CNB slides to predict the metastatic status of ALN preoperatively for patients with EBC.
 
-## Dataset
+## BCNB Dataset
 
-Our paper has introduced a new dataset that includes whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222).
+Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222). For full access to the BCNB dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
 
 ### Description
 
-The dataset is collected and organized by the experienced doctors of our research group.
-
-There are a totally of 1058 patients and they are divided into the following 3 categories according to the axillary lymph node (ALN) metastasis:
+There are a totally of **1058 patients** and they are divided into the following 3 categories according to the axillary lymph node (ALN) metastasis:
 
 - N0: having no positive lymph nodes (655 patients, 61.9%).
 - N+(1-2): having one or two positive lymph nodes (210 patients, 19.8%).
 - N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
 
-Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label.
+**Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label.**
 
-The WSIs is provided with `.jpg` format and the clinical data is provided with `.xlsx` format.
+The WSIs are provided with `.jpg` format and the clinical data are provided with `.xlsx` format. The dataset is collected and organized by the experienced doctors of our research group.
 
-The usage of this dataset must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license). We have used this dataset for weakly supervised classification, and we do not limit the specific task types for your research. Please note that the dataset is only used for education and research, and the usage for commercial and clinical applications is not allowed.
+Based on this dataset, we have studied the prediction of the metastatic status of axillary lymph node (ALN) in our [paper](https://arxiv.org/abs/2112.02222), which is a weakly supervised classification task, and the researches to predict histological grading, molecular subtype, HER2, ER, and PR are also feasible. We do not limit the specific content for your research, and any research based on our dataset is welcome.
+
+**Please note that the dataset is only used for education and research, and the usage for commercial and clinical applications is not allowed. The usage of this dataset must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license).** 
 
 ### Annotation
 
@@ -61,13 +61,13 @@ Annotation information is stored in `.json` with the following format, where `ve
 }
 ```
 
-### Code for preprocessing
+### Code for data preprocessing
 
-We have used the codes for extracting annotated tumor regions of all WSIs and cutting patches with fixed size from all extracted annotated tumor regions, and they may be helpful for your research. Please check the [code](https://github.com/bupt-ai-cz/BALNMP/tree/main/code) for more details.
+We provided some codes for data preprocessing, which can be used to extract annotated tumor regions of all WSIs, and cutting patches with fixed size from all extracted annotated tumor regions, they may be helpful for you. Please check the [code](https://github.com/bupt-ai-cz/BALNMP/tree/main/code) for more details.
 
 ### Example
 
-Here we have provided some WSIs and clinical data. For full access to the dataset, please contact us and the usage must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license).
+Here we have provided some WSIs and clinical data. For full access to the dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
 
 #### WSI
 
@@ -124,9 +124,9 @@ Please cite our paper in your publications if it helps your research.
 
 ## License
 
-This BALNMP Dataset is made freely available to academic and non-academic entities for non-commercial purposes such as academic research, teaching, scientific publications, or personal experimentation. Permission is granted to use the data given that you agree to our license terms bellow:
+This dataset is made freely available to academic and non-academic entities for non-commercial purposes such as academic research, teaching, scientific publications, or personal experimentation. Permission is granted to use the data given that you agree to our license terms bellow:
 
-1. That you include a reference to the BALNMP Dataset in any work that makes use of the dataset. For research papers, cite our preferred publication as listed on our website; for other media cite our preferred publication as listed on our website or link to the BALNMP website.
+1. That you include a reference to the dataset in any work that makes use of the dataset. For research papers, cite our preferred publication as listed on our website; for other media cite our preferred publication as listed on our website or link to the website.
 2. That you do not distribute this dataset or modified versions. It is permissible to distribute derivative works in as far as they are abstract representations of this dataset (such as models trained on it or additional annotations that do not directly include any of our data).
 3. That you may not use the dataset or any derivative work for commercial purposes as, for example, licensing or selling the data, or using the data with a purpose to procure a commercial gain.
 4. That all rights not expressly granted to you are reserved by us.

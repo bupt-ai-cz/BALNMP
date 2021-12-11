@@ -1,4 +1,4 @@
-# Code for preprocessing
+# Code for data preprocessing
 
 ## Environment
 
@@ -9,7 +9,7 @@ pip install opencv-python
 
 ## Usage
 
-### extract annotated tumor regions of all WSIs
+### `cut_tumor_regions.py`: extract annotated tumor regions of all WSIs.
 
 - get the usage information of scripts
 
@@ -29,7 +29,7 @@ python cut_tumor_regions.py --wsi_dir_path ./WSIs --output_dir_path ./tumour-reg
 python cut_tumor_regions.py --wsi_dir_path ./WSIs --output_dir_path ./tumour-regions --not_filled_other_regions
 ```
 
-### cut patches with fixed size from all extracted annotated tumor regions
+### `cut_patches.py`: cut patches with fixed size from all extracted annotated tumor regions.
 
 - get the usage information of scripts
 
