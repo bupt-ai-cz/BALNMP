@@ -29,7 +29,7 @@ There are a totally of **1058 patients** and they are divided into the following
 - N+(1-2): having one or two positive lymph nodes (210 patients, 19.8%).
 - N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
 
-**Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label.**
+**Tumor regions are annotated in WSIs. Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label.**
 
 The WSIs are provided with `.jpg` format and the clinical data are provided with `.xlsx` format. The dataset is collected and organized by the experienced doctors of our research group.
 
