@@ -17,7 +17,9 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 ## BCNB Dataset
 
-Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222). For full access to the BCNB dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
+Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222). 
+
+For full access to the BCNB dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
 
 ### Description
 
