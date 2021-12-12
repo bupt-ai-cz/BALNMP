@@ -94,6 +94,7 @@ Here we have provided some WSIs and clinical data. For full access to the datase
 <div align="center">
     <img src="imgs/clinical-data.png" alt="clinical-data" />
 </div>
+
 ## Results
 
 We have recomputed the classification results with argmax prediction rule, and they are different with the results in our paper, which are computed based on the [cut-off value in ROC](https://en.wikipedia.org/wiki/Youden%27s_J_statistic#:~:text=Youden%27s%20index%20is,as%20informedness.%5B3%5D). The dataset files for each experiments setting are placed [here](https://github.com/bupt-ai-cz/BALNMP/tree/main/dataset_json).
