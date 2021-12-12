@@ -1,5 +1,5 @@
 # Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides ![visitors](https://visitor-badge.glitch.me/badge?page_id=bupt-ai-cz.BALNMP)
-[Arxiv](https://arxiv.org/abs/2112.02222) | [Project](https://bupt-ai-cz.github.io/BALNMP/) | [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Codes%20and%20Data%20for%20Our%20Paper:%20"Predicting%20Axillary%20Lymph%20Node%20Metastasis%20in%20Early%20Breast%20Cancer"%20&url=https://github.com/bupt-ai-cz/BALNMP)
+[Arxiv](https://arxiv.org/abs/2112.02222) | [Dataset Page](https://bupt-ai-cz.github.io/BCNB/) | [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Codes%20and%20Data%20for%20Our%20Paper:%20"Predicting%20Axillary%20Lymph%20Node%20Metastasis%20in%20Early%20Breast%20Cancer"%20&url=https://github.com/bupt-ai-cz/BALNMP)
 
 This repo is the official implementation and dataset introduction of our paper "Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides".
 
@@ -49,7 +49,7 @@ Please download the software from [here](https://drive.google.com/drive/folders/
 
 Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222). 
 
-For full access to the BCNB dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
+For full access to the BCNB dataset, please visit the [Dataset Page](https://bupt-ai-cz.github.io/BCNB/).
 
 ## Description
 
@@ -99,7 +99,7 @@ We provided some codes for data preprocessing, which can be used to extract anno
 
 ## Overview
 
-The overall clinical statistics information of our dataset are as follows. Here we have provided some WSIs and clinical data. For full access to the dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
+The overall clinical statistics information of our dataset are as follows. Here we have provided some WSIs and clinical data. For full access to the dataset, please visit the [Dataset Page](https://bupt-ai-cz.github.io/BCNB/).
 
 <div align="center">
     <img src="imgs/clinical-data-statistics.png" alt="demo-software" height="75%" width="75%" />
