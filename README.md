@@ -15,86 +15,6 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 - Conclusion: Our study provides a novel DL-based biomarker on primary tumor CNB slides to predict the metastatic status of ALN preoperatively for patients with EBC.
 
-## BCNB Dataset
-
-Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222). 
-
-For full access to the BCNB dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
-
-### Description
-
-There are a totally of **1058 patients** and they are divided into the following 3 categories according to the axillary lymph node (ALN) metastasis:
-
-- N0: having no positive lymph nodes (655 patients, 61.9%).
-- N+(1-2): having one or two positive lymph nodes (210 patients, 19.8%).
-- N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
-
-**Part of tumor regions are annotated in WSIs, the extra annotations should be done by yourself if needed. Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label.**
-
-The WSIs are provided with `.jpg` format and the clinical data are provided with `.xlsx` format. The dataset is collected and organized by the experienced doctors of our research group.
-
-Based on this dataset, we have studied the prediction of the metastatic status of axillary lymph node (ALN) in our [paper](https://arxiv.org/abs/2112.02222), which is a weakly supervised classification task. However, other researches based on our dataset are also feasible, such as the prediction of histological grading, molecular subtype, HER2, ER, and PR. We do not limit the specific content for your research, and any research based on our dataset is welcome.
-
-**Please note that the dataset is only used for education and research, and the usage for commercial and clinical applications is not allowed. The usage of this dataset must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license).** 
-
-### Annotation
-
-Annotation information is stored in `.json` with the following format, where `vertices` have recorded coordinates of each point in the polygonal annotated area.
-
-```json
-{
-    "positive": [
-        {
-            "name": "Annotation 0",
-            "vertices": [
-                [
-                    14274,
-                    10723
-                ],
-                [
-                    14259,
-                    10657
-                ],
-                ......
-            ]
-        }
-    ],
-    "negative": []
-}
-```
-
-### Code for data preprocessing
-
-We provided some codes for data preprocessing, which can be used to extract annotated tumor regions of all WSIs, and cutting patches with fixed size from all extracted annotated tumor regions, they may be helpful for you. Please check the [code](https://github.com/bupt-ai-cz/BALNMP/tree/main/code) for more details.
-
-### Example
-
-Here we have provided some WSIs and clinical data. For full access to the dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
-
-#### WSI
-
-##### N0
-
-<div align="center">
-    <img src="imgs/N0.png" alt="N0" height="70%" width="70%" />
-</div>
-
-##### N+(1-2)
-<div align="center">
-    <img src="imgs/N+(1~2).png" alt="N+(1-2)" height="70%" width="70%" />
-</div>
-
-##### N+(>2)
-<div align="center">
-    <img src="imgs/N+(%EF%BC%9E2).png" alt="N+(>2)" height="50%" width="50%" />
-</div>
-
-#### Clinical Data
-
-<div align="center">
-    <img src="imgs/clinical-data.png" alt="clinical-data" />
-</div>
-
 ## Results
 
 We have recomputed the classification results with argmax prediction rule, and they are different with the results in our paper, which are computed based on the [cut-off value in ROC](https://en.wikipedia.org/wiki/Youden%27s_J_statistic#:~:text=Youden%27s%20index%20is,as%20informedness.%5B3%5D). The dataset files for each experiments setting are placed [here](https://github.com/bupt-ai-cz/BALNMP/tree/main/dataset_json).
@@ -123,6 +43,86 @@ Please download the software from [here](https://drive.google.com/drive/folders/
 
 <div align="center">
     <img src="imgs/demo-software.png" alt="demo-software" height="25%" width="25%" />
+</div>
+
+# BCNB Dataset
+
+Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222). 
+
+For full access to the BCNB dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
+
+## Description
+
+There are a totally of **1058 patients** and they are divided into the following 3 categories according to the axillary lymph node (ALN) metastasis:
+
+- N0: having no positive lymph nodes (655 patients, 61.9%).
+- N+(1-2): having one or two positive lymph nodes (210 patients, 19.8%).
+- N+(>2): having three or more positive lymph nodes (193 patients, 18.3%).
+
+**Part of tumor regions are annotated in WSIs, the extra annotations should be done by yourself if needed. Except for the WSIs, we have also provided the clinical data of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, label.**
+
+The WSIs are provided with `.jpg` format and the clinical data are provided with `.xlsx` format. The dataset is collected and organized by the experienced doctors of our research group.
+
+Based on this dataset, we have studied the prediction of the metastatic status of axillary lymph node (ALN) in our [paper](https://arxiv.org/abs/2112.02222), which is a weakly supervised classification task. However, other researches based on our dataset are also feasible, such as the prediction of histological grading, molecular subtype, HER2, ER, and PR. We do not limit the specific content for your research, and any research based on our dataset is welcome.
+
+**Please note that the dataset is only used for education and research, and the usage for commercial and clinical applications is not allowed. The usage of this dataset must follow the [license](https://github.com/bupt-ai-cz/BALNMP#license).** 
+
+## Annotation
+
+Annotation information is stored in `.json` with the following format, where `vertices` have recorded coordinates of each point in the polygonal annotated area.
+
+```json
+{
+    "positive": [
+        {
+            "name": "Annotation 0",
+            "vertices": [
+                [
+                    14274,
+                    10723
+                ],
+                [
+                    14259,
+                    10657
+                ],
+                ......
+            ]
+        }
+    ],
+    "negative": []
+}
+```
+
+## Code for data preprocessing
+
+We provided some codes for data preprocessing, which can be used to extract annotated tumor regions of all WSIs, and cutting patches with fixed size from all extracted annotated tumor regions, they may be helpful for you. Please check the [code](https://github.com/bupt-ai-cz/BALNMP/tree/main/code) for more details.
+
+## Example
+
+Here we have provided some WSIs and clinical data. For full access to the dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
+
+### WSI
+
+#### N0
+
+<div align="center">
+    <img src="imgs/N0.png" alt="N0" height="70%" width="70%" />
+</div>
+
+#### N+(1-2)
+<div align="center">
+    <img src="imgs/N+(1~2).png" alt="N+(1-2)" height="70%" width="70%" />
+</div>
+
+#### N+(>2)
+<div align="center">
+    <img src="imgs/N+(%EF%BC%9E2).png" alt="N+(>2)" height="50%" width="50%" />
+</div>
+
+### Clinical Data
+
+<div align="center">
+    <img src="imgs/clinical-data.png" alt="clinical-data" />
 </div>
 
 ## Citation
