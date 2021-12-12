@@ -17,7 +17,7 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 ## Results
 
-We have recomputed the classification results with argmax prediction rule, and they are different with the results in our paper, which are computed based on the [cut-off value in ROC](https://en.wikipedia.org/wiki/Youden%27s_J_statistic#:~:text=Youden%27s%20index%20is,as%20informedness.%5B3%5D). The dataset files for each experiments setting are placed [here](https://github.com/bupt-ai-cz/BALNMP/tree/main/dataset_json).
+We have recomputed the classification results with argmax prediction rule, and they are different with the results in our [paper](https://arxiv.org/abs/2112.02222), which are computed based on the [cut-off value in ROC](https://en.wikipedia.org/wiki/Youden%27s_J_statistic#:~:text=Youden%27s%20index%20is,as%20informedness.%5B3%5D). The dataset files for each experiments setting are placed [here](https://github.com/bupt-ai-cz/BALNMP/tree/main/dataset_json).
 
 ### The performance in prediction of ALN status (N0 vs. N(+))
 
