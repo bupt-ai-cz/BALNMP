@@ -97,9 +97,13 @@ Annotation information is stored in `.json` with the following format, where `ve
 
 We provided some codes for data preprocessing, which can be used to extract annotated tumor regions of all WSIs, and cutting patches with fixed size from all extracted annotated tumor regions, they may be helpful for you. Please check the [code](https://github.com/bupt-ai-cz/BALNMP/tree/main/code) for more details.
 
-## Example
+## Overview
 
-Here we have provided some WSIs and clinical data. For full access to the dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
+The overall clinical statistics information of our dataset are as follows. Here we have provided some WSIs and clinical data. For full access to the dataset, please visit the [project page](https://bupt-ai-cz.github.io/BALNMP/).
+
+<div align="center">
+    <img src="imgs/clinical-data-statistics.png" alt="demo-software" height="75%" width="75%" />
+</div>
 
 ### WSI
 
