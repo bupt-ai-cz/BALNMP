@@ -55,6 +55,8 @@ Please download the software from [here](https://drive.google.com/drive/folders/
 
 Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222). 
 
+## Download
+
 For full access to the BCNB dataset, please visit the [Dataset Page](https://bupt-ai-cz.github.io/BCNB/).
 
 ## Description
@@ -99,27 +101,22 @@ We provide some codes for data preprocessing, which can be used to extract annot
 
 ## Overview
 
-The overall clinical characteristics statistics information of our dataset are as follows. Here we have provided some WSIs and clinical data. For full access to the dataset, please visit the [Dataset Page](https://bupt-ai-cz.github.io/BCNB/).
+The overall clinical characteristics statistics information of our dataset are as follows:
 
 <div align="center">
     <img src="imgs/clinical-data-statistics.png" alt="demo-software" height="75%" width="75%" />
 </div>
 
-### WSI
-
-#### N0
+### WSIs
 
 <div align="center">
     <img src="imgs/N0.png" alt="N0" height="70%" width="70%" />
 </div>
 
-#### N+(1-2)
 <div align="center">
     <img src="imgs/N+(1-2).png" alt="N+(1-2)" height="70%" width="70%" />
 </div>
 
-
-#### N+(>2)
 <div align="center">
     <img src="imgs/N+(%EF%BC%9E2).png" alt="N+(>2)" height="50%" width="50%" />
 </div>
