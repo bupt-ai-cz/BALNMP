@@ -17,7 +17,7 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 ## Paper Results
 
-The results in our paper are computed based on the [cut-off value in ROC](https://en.wikipedia.org/wiki/Youden%27s_J_statistic#:~:text=Youden%27s%20index%20is,as%20informedness.%5B3%5D). For your convenient reference, we have recomputed the classification results with argmax prediction rule, where the threshold for binary classification is 0.5, and the detailed recomputed results are [here](./recompute_results/README.md).
+The results in our paper are computed based on the [cut-off value in ROC](https://en.wikipedia.org/wiki/Youden%27s_J_statistic#:~:text=Youden%27s%20index%20is,as%20informedness.%5B3%5D). For your convenient reference, we have recomputed the classification results with argmax prediction rule, where the threshold for binary classification is 0.5, and the detailed recomputed results are [here](./recompute_results.md).
 
 ### The performance in prediction of ALN status (N0 vs. N(+))
 
@@ -39,7 +39,7 @@ The results in our paper are computed based on the [cut-off value in ROC](https:
 
 ## Model code and Pre-trained model
 
-We have provided the [model code](https://github.com/bupt-ai-cz/BALNMP/blob/main/model.py) and [pre-trained model](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing) for inference, the code is heavily borrowed from [AttentionDeepMIL](https://github.com/AMLab-Amsterdam/AttentionDeepMIL). The model is implemented with [Pytorch](https://pytorch.org/).
+We have provided the [model code](./model.py) and [pre-trained model](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing) for inference, the code is heavily borrowed from [AttentionDeepMIL](https://github.com/AMLab-Amsterdam/AttentionDeepMIL), which is implemented with [Pytorch](https://pytorch.org/).
 
 ## Demo Software
 
@@ -95,7 +95,7 @@ Annotation information is stored in `.json` with the following format, where `ve
 
 ## Code for data preprocessing
 
-We provide some codes for data preprocessing, which can be used to extract annotated tumor regions of all WSIs, and cutting patches with fixed size from all extracted annotated tumor regions, they may be helpful for you. Please check the [code](https://github.com/bupt-ai-cz/BALNMP/tree/main/code_preprocessing) for more details.
+We provide some codes for data preprocessing, which can be used to extract annotated tumor regions of all WSIs, and cutting patches with fixed size from all extracted annotated tumor regions, they may be helpful for you. Please check the [code](./code_preprocessing) for more details.
 
 ## Overview
 
