@@ -53,7 +53,13 @@ Please download the software from [here](https://drive.google.com/drive/folders/
 
 # BCNB Dataset
 
-Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222). 
+Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222).
+
+<div align="center">
+    <a href="https://bupt-ai-cz.github.io/BCNB/">
+        <img src="https://raw.githubusercontent.com/bupt-ai-cz/bupt-ai-cz/main/imgs/BCNB-logo.png" alt="BCNB-logo" height="75%" width="75%" />
+    </a>
+</div>
 
 ## Download
 
