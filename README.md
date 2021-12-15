@@ -69,7 +69,7 @@ For full access to the BCNB dataset, please visit the [Dataset Page](https://bup
 
 ## Description
 
-**There are WSIs of 1058 patients, <u>and only part of tumor regions are annotated in WSIs</u>. Except for the WSIs, we have also provided the clinical characteristics of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, and the metastatic status of ALN. The dataset has been desensitized, and not contained the privacy information of patients. ** 
+**There are WSIs of 1058 patients, and only part of tumor regions are annotated in WSIs. Except for the WSIs, we have also provided the clinical characteristics of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, and the metastatic status of ALN. The dataset has been desensitized, and not contained the privacy information of patients.** 
 
 The WSIs are provided with `.jpg` format and the clinical data are provided with `.xlsx` format. The dataset is collected and organized by the experienced doctors of our research group. The dataset has been desensitized, and not contained the privacy information of patients.
 
