@@ -53,7 +53,9 @@ Please download the software from [here](https://drive.google.com/drive/folders/
 
 # BCNB Dataset
 
-Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222).
+Our paper has introduced a new dataset of **Early Breast Cancer Core-Needle Biopsy WSI (BCNB)**, which includes core-needle biopsy whole slide images (WSIs) of early breast cancer patients and the corresponding clinical data. The WSIs have been examined and annotated by two independent and experienced pathologists blinded to all patient-related information.
+
+Based on this dataset, we have studied the deep learning algorithm for predicting the metastatic status of axillary lymph node (ALN) preoperatively by using multiple instance learning (MIL), and have achieved the best AUC of 0.831 in the independent test cohort. For more details, please review our [paper](https://arxiv.org/abs/2112.02222).
 
 <div align="center">
     <a href="https://bupt-ai-cz.github.io/BCNB/">
@@ -67,7 +69,7 @@ For full access to the BCNB dataset, please visit the [Dataset Page](https://bup
 
 ## Description
 
-**There are WSIs of 1058 patients. Part of tumor regions are annotated in WSIs, the extra annotations should be done by yourself if needed. Except for the WSIs, we have also provided the clinical characteristics of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, and the metastatic status of ALN.**
+**There are WSIs of 1058 patients, <u>and only part of tumor regions are annotated in WSIs</u>. Except for the WSIs, we have also provided the clinical characteristics of each patient, which includes age, tumor size, tumor type, ER, PR, HER2, HER2 expression, histological grading, surgical, Ki67, molecular subtype, number of lymph node metastases, and the metastatic status of ALN. The dataset has been desensitized, and not contained the privacy information of patients. ** 
 
 The WSIs are provided with `.jpg` format and the clinical data are provided with `.xlsx` format. The dataset is collected and organized by the experienced doctors of our research group. The dataset has been desensitized, and not contained the privacy information of patients.
 
@@ -107,7 +109,7 @@ We provide some codes for data preprocessing, which can be used to extract annot
 
 ## Overview
 
-The overall clinical characteristics statistics information of our dataset are as follows:
+For your convenience in research, we have split the BCNB Dataset into training cohort, validation cohort, and independent test cohort with the ratio as 6: 2: 2. The overall clinical characteristics statistics information of the BCNB Dataset are as follows:
 
 <div align="center">
     <img src="imgs/clinical-data-statistics.png" alt="demo-software" height="75%" width="75%" />
