@@ -39,6 +39,8 @@ The results in our paper are computed based on the [cut-off value in ROC](https:
 
 ## Implementation details
 
+### Data preparation
+
 In our all experiments, the bag number (*M*) for each WSI is not fixed and is dependent on the resolution of WSI. Concretely, a WSI is cut into multiple patches with a resolution of 256 x 256, where patches with a blank ratio greater than 0.3 are filtered out, and then a bag is composed of randomly sampled 10 patches. So finally the bag number (*M*) of WSIs is varying from 1 to 300, which is not fixed during training and testing.
 
 The 5 clinical characteristics used in our experiments are age (numerical), tumor size (numerical), ER (categorical), PR (categorical), and HER2 (categorical), which are provided in our BCNB Dataset, and you can access them from our [BCNB Dataset](https://bupt-ai-cz.github.io/BCNB/).
@@ -46,6 +48,8 @@ The 5 clinical characteristics used in our experiments are age (numerical), tumo
 <div align="center">
     <img src="imgs/a.png" alt="a"/>
 </div>
+
+### Model testing
 
 As mentioned above, a WSI is split into multiple bags, and each bag is inputted into the MIL model to obtain predicted probabilities. So for obtaining the comprehensive predicted results of a WSI during testing, we compute the average value of predicted probabilities to achieve "Result Merging".
 
