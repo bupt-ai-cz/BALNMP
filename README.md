@@ -15,7 +15,7 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 - Conclusion: Our study provides a novel DL-based biomarker on primary tumor CNB slides to predict the metastatic status of ALN preoperatively for patients with EBC.
 
-## Paper Results
+## Paper results
 
 The results in our paper are computed based on the [cut-off value in ROC](https://en.wikipedia.org/wiki/Youden%27s_J_statistic#:~:text=Youden%27s%20index%20is,as%20informedness.%5B3%5D). For your convenient reference, we have recomputed the classification results with argmax prediction rule, where the threshold for binary classification is 0.5, and the detailed recomputed results are [here](./recompute_results.md).
 
@@ -36,12 +36,27 @@ The results in our paper are computed based on the [cut-off value in ROC](https:
 <div align="center">
     <img src="imgs/N0 vs. N + (＞2).png" alt="N0 vs. N + (＞2)"/>
 </div>
+## Implementation details
 
-## Model code and Pre-trained model
+In our all experiments, the bag number (*M*) for each WSI is not fixed and is dependent on the resolution of WSI. Concretely, a WSI is cut into multiple patches with a resolution of 256 x 256, where patches with a blank ratio greater than 0.3 are filtered out, and then a bag is composed of randomly sampled 10 patches. So finally the bag number (*M*) of WSIs is varying from 1 to 300, which is not fixed during training and testing.
+
+The 5 clinical characteristics used in our experiments are age (numerical), tumor size (numerical), ER (categorical), PR (categorical), and HER2 (categorical), which are provided in our BCNB Dataset, and you can access them from our [BCNB Dataset](https://bupt-ai-cz.github.io/BCNB/).
+
+<div align="center">
+    <img src="imgs/a.png" alt="a"/>
+</div>
+
+As mentioned above, a WSI is split into multiple bags, and each bag is inputted into the MIL model to obtain predicted probabilities. So for obtaining the comprehensive predicted results of a WSI during testing, we compute the average value of predicted probabilities to achieve "Result Merging".
+
+<div align="center">
+    <img src="imgs/c.png" alt="c"/>
+</div>
+
+## Model code and pre-trained model
 
 We have provided the [model code](./model.py) and [pre-trained model](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing) for inference, the code is heavily borrowed from [AttentionDeepMIL](https://github.com/AMLab-Amsterdam/AttentionDeepMIL), which is implemented with [Pytorch](https://pytorch.org/).
 
-## Demo Software
+## Demo software
 
 We have also provided software for easily checking the performance of our model to predict ALN metastasis.
 
@@ -131,7 +146,7 @@ For your convenience in research, we have split the BCNB Dataset into training c
     <img src="imgs/N+(%EF%BC%9E2).png" alt="N+(>2)" height="50%" width="50%" />
 </div>
 
-### Clinical Data
+### Clinical data
 
 <div align="center">
     <img src="imgs/clinical-data.png" alt="clinical-data" />
