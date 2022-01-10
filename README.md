@@ -36,6 +36,7 @@ The results in our paper are computed based on the [cut-off value in ROC](https:
 <div align="center">
     <img src="imgs/N0 vs. N + (＞2).png" alt="N0 vs. N + (＞2)"/>
 </div>
+
 ## Implementation details
 
 In our all experiments, the bag number (*M*) for each WSI is not fixed and is dependent on the resolution of WSI. Concretely, a WSI is cut into multiple patches with a resolution of 256 x 256, where patches with a blank ratio greater than 0.3 are filtered out, and then a bag is composed of randomly sampled 10 patches. So finally the bag number (*M*) of WSIs is varying from 1 to 300, which is not fixed during training and testing.
