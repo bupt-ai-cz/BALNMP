@@ -51,7 +51,7 @@ The 5 clinical characteristics used in our experiments are age (numerical), tumo
 
 ### Model testing
 
-As mentioned above, a WSI is split into multiple bags, and each bag is inputted into the MIL model to obtain predicted probabilities. So for obtaining the comprehensive predicted results of a WSI during testing, we compute the average value of predicted probabilities to achieve "Result Merging".
+As mentioned above, a WSI is split into multiple bags, and each bag is inputted into the MIL model to obtain predicted probabilities. So for obtaining the comprehensive predicted results of a WSI during testing, we compute the average predicted probabilities of all bags to achieve "Result Merging".
 
 <div align="center">
     <img src="imgs/c.png" alt="c"/>
