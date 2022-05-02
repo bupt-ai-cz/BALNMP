@@ -1,5 +1,5 @@
 # Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides ![visitors](https://visitor-badge.glitch.me/badge?page_id=bupt-ai-cz.BALNMP)
-[Arxiv](https://arxiv.org/abs/2112.02222) | [Dataset Page](https://bupt-ai-cz.github.io/BCNB/) | [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Codes%20and%20Data%20for%20Our%20Paper:%20"Predicting%20Axillary%20Lymph%20Node%20Metastasis%20in%20Early%20Breast%20Cancer"%20&url=https://github.com/bupt-ai-cz/BALNMP)
+[Grand-Challenge](https://bcnb.grand-challenge.org/) | [Arxiv](https://arxiv.org/abs/2112.02222) | [Dataset Page](https://bupt-ai-cz.github.io/BCNB/) | [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Codes%20and%20Data%20for%20Our%20Paper:%20"Predicting%20Axillary%20Lymph%20Node%20Metastasis%20in%20Early%20Breast%20Cancer"%20&url=https://github.com/bupt-ai-cz/BALNMP)
 
 This repo is the official implementation and dataset introduction of our paper "Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides".
 
