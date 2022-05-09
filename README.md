@@ -41,7 +41,13 @@ The results in our paper are computed based on the [cut-off value in ROC](https:
 
 ### Data preparation
 
-In our all experiments, the bag number (*M*) for each WSI is not fixed and is dependent on the resolution of WSI. Concretely, a WSI is cut into multiple patches with a resolution of 256 x 256, where patches with a blank ratio greater than 0.3 are filtered out, and then a bag is composed of randomly sampled 10 patches. So finally the bag number (*M*) of WSIs is varying from 1 to 300, which is not fixed during training and testing.
+In our all experiments, the patch number (*N*) of each bag is fixed as 10, however, the bag number (*M*) for each WSI is not fixed and is dependent on the resolution of a WSI. According to our statistical results, the bag number (*M*) of WSIs varies from 1 to 300, which is not fixed for a WSI during training and testing. The process of dataset preparation is shown in the following figure, and the details are as follows:
+
+- Firstly, we cut out annotated tumor regions for each WSI, and there may exist multiple annotated tumor regions in a WSI.
+
+- Then, each extracted tumor region is cropped into amounts of non-overlapping square patches with a resolution of 256 \* 256, and patches with a blank ratio greater than 0.3 are filtered out.
+
+- Finally, for each WSI, a bag is composed of randomly sampled 10 (*N*) patches, and the left patches which can not be grouped into a bag will be discarded.
 
 The 5 clinical characteristics used in our experiments are age (numerical), tumor size (numerical), ER (categorical), PR (categorical), and HER2 (categorical), which are provided in our BCNB Dataset, and you can access them from our [BCNB Dataset](https://bupt-ai-cz.github.io/BCNB/).
 
@@ -65,7 +71,7 @@ We have provided the [model code](./model.py) and [pre-trained model](https://dr
 
 We have also provided software for easily checking the performance of our model to predict ALN metastasis.
 
-Please download the software from [here](https://drive.google.com/drive/folders/1ItKCldu8vbHhbZvhXic-11Ei-NVGBZU2?usp=sharing), and check the `README.txt` for usage. Please note that this software is only used for demo, and it cannot be used for other purposes.
+Please download the software from [here](https://drive.google.com/drive/folders/18f0rEmV3dfdZsnFY2mfbF-MMtk9JkjZY?usp=sharing), and check the `README.txt` for usage. Please note that this software is only used for demo, and it cannot be used for other purposes.
 
 <div align="center">
     <img src="imgs/demo-software.png" alt="demo-software" height="25%" width="25%" />
