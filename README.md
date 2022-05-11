@@ -5,6 +5,10 @@ This repo is the official implementation and dataset introduction of our paper "
 
 Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/articles/10.3389/fonc.2021.759007/full), and you can also get access our paper from [Arxiv](https://arxiv.org/abs/2112.02222) or [MedRxiv](https://www.medrxiv.org/content/10.1101/2021.10.10.21264721).
 
+## News
+- We launched a [Grand Challenge: BCNB](https://bcnb.grand-challenge.org/) to promote relevant research.
+-  We released our data. Please visit [homepage](https://bupt-ai-cz.github.io/BCNB/) to get the downloading information. 
+
 ## Abstract
 
 - Objectives: To develop and validate a deep learning (DL)-based primary tumor biopsy signature for predicting axillary lymph node (ALN) metastasis preoperatively in early breast cancer (EBC) patients with clinically negative ALN.
