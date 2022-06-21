@@ -68,7 +68,7 @@ class MILMainNetWithClinicalData(nn.Module):
 
     def build_image_feature_extractor(self):
         self.image_feature_extractor = nn.Sequential(*(list(torchvision.models.vgg16_bn(pretrained=True).children())[:-1]))
-        self.output_features_size = 512 * 7 * 7
+        self.image_feature_extractor.output_features_size = 512 * 7 * 7
 
     def forward(self, bag_data, clinical_data):
         bag_data = bag_data.squeeze(0)
