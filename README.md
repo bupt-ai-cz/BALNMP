@@ -8,7 +8,7 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 ## News
 - We launched a [Grand Challenge: BCNB](https://bcnb.grand-challenge.org/) to promote relevant research.
 - We released our data. Please visit [homepage](https://bupt-ai-cz.github.io/BCNB/) to get the downloading information.
-- Paper codes are released.
+- Paper codes are released, please see [code](./code) for more details.
 
 ## Abstract
 
