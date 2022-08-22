@@ -1,13 +1,14 @@
 # Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides ![visitors](https://visitor-badge.glitch.me/badge?page_id=bupt-ai-cz.BALNMP)
 [Grand-Challenge](https://bcnb.grand-challenge.org/) | [Arxiv](https://arxiv.org/abs/2112.02222) | [Dataset Page](https://bupt-ai-cz.github.io/BCNB/) | [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Codes%20and%20Data%20for%20Our%20Paper:%20"Predicting%20Axillary%20Lymph%20Node%20Metastasis%20in%20Early%20Breast%20Cancer"%20&url=https://github.com/bupt-ai-cz/BALNMP)
 
-This repo is the official implementation and dataset introduction of our paper "Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides".
+This repo is the official implementation of our paper "Predicting Axillary Lymph Node Metastasis in Early Breast Cancer Using Deep Learning on Primary Tumor Biopsy Slides".
 
 Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/articles/10.3389/fonc.2021.759007/full), and you can also get access our paper from [Arxiv](https://arxiv.org/abs/2112.02222) or [MedRxiv](https://www.medrxiv.org/content/10.1101/2021.10.10.21264721).
 
 ## News
 - We launched a [Grand Challenge: BCNB](https://bcnb.grand-challenge.org/) to promote relevant research.
--  We released our data. Please visit [homepage](https://bupt-ai-cz.github.io/BCNB/) to get the downloading information. 
+- We released our data. Please visit [homepage](https://bupt-ai-cz.github.io/BCNB/) to get the downloading information.
+- Paper codes are released.
 
 ## Abstract
 
@@ -18,6 +19,50 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 - Results: The best-performing DL-CNB model with VGG16_BN as the feature extractor achieved an AUC of 0.816 (95% confidence interval (CI): 0.758, 0.865) in predicting positive ALN metastasis in the independent test cohort. Furthermore, our model incorporating the clinical data, which was called DL-CNB+C, yielded the best accuracy of 0.831 (95% CI: 0.775, 0.878), especially for patients younger than 50 years (AUC: 0.918, 95% CI: 0.825, 0.971). The interpretation of DL-CNB model showed that the top signatures most predictive of ALN metastasis were characterized by the nucleus features including density (*p* = 0.015), circumference (*p* = 0.009), circularity (*p* = 0.010), and orientation (*p* = 0.012).
 
 - Conclusion: Our study provides a novel DL-based biomarker on primary tumor CNB slides to predict the metastatic status of ALN preoperatively for patients with EBC.
+
+## Setup
+
+### Environment
+
+Create environment and install dependencies.
+
+```bash
+conda create -n BALNMP python=3.6 -y
+conda activate BALNMP
+pip install -r requirements.txt
+```
+
+### Dataset
+
+For your convenience, we have provided preprocessed WSI patches and corresponding clinical data.
+
+Please download the dataset from [here](https://drive.google.com/file/d/1KKbdsmCaA4xKDdOPdTXuxIga4o9ZUrLG/view?usp=sharing), and unzip them by the following scripts:
+
+```bash
+cd code
+mkdir dataset
+unzip paper_dataset.zip -d dataset
+```
+
+## Training
+
+Our codes have supported the following experiments, whose results have been presented in our [paper and supplementary material](https://arxiv.org/abs/2112.02222).
+
+> experiment_index:
+> 
+> 0. N0 vs N+(>0)
+> 1. N+(1-2) vs N+(>2)
+> 2. N0 vs N+(1-2) vs N+(>2)
+> 3. N0 vs N+(1-2)
+> 4. N0 vs N+(>2)
+
+To run any experiment, you can do as this:
+
+```bash
+bash run.sh ${experiment_index}
+```
+
+Furthermore, if you want to try other settings, please see `train.py` for more details.
 
 ## Paper results
 
@@ -67,10 +112,6 @@ As mentioned above, a WSI is split into multiple bags, and each bag is inputted 
     <img src="imgs/c.png" alt="c"/>
 </div>
 
-## Model code and pre-trained model
-
-We have provided the [model code](./model.py) and [pre-trained model](https://drive.google.com/drive/folders/1W7kBL_kdzFuPS5jvI-liHCIe6YVl505z?usp=sharing) for inference, the code is heavily borrowed from [AttentionDeepMIL](https://github.com/AMLab-Amsterdam/AttentionDeepMIL), which is implemented with [Pytorch](https://pytorch.org/).
-
 ## Demo software
 
 We have also provided software for easily checking the performance of our model to predict ALN metastasis.
@@ -81,8 +122,14 @@ Please download the software from [here](https://drive.google.com/drive/folders/
     <img src="imgs/demo-software.png" alt="demo-software" height="25%" width="25%" />
 </div>
 
-# Contact
+## Contact
 
-If you encounter any problems please contact us without hesitation.
+If you encounter any problems, please open an issue without hesitation, and you can also contact us with the following:
 
 - email: tangwenqi@bupt.edu.cn, czhu@bupt.edu.cn, drxufeng@mail.ccmu.edu.cn
+
+## Acknowledgements
+
+This project is based on the following open-source projects. We thank their authors for making the source code publically available.
+
+- [AttentionDeepMIL](https://github.com/AMLab-Amsterdam/AttentionDeepMIL)
