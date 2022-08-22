@@ -20,50 +20,6 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 - Conclusion: Our study provides a novel DL-based biomarker on primary tumor CNB slides to predict the metastatic status of ALN preoperatively for patients with EBC.
 
-## Setup
-
-### Environment
-
-Create environment and install dependencies.
-
-```bash
-conda create -n BALNMP python=3.6 -y
-conda activate BALNMP
-pip install -r requirements.txt
-```
-
-### Dataset
-
-For your convenience, we have provided preprocessed WSI patches and corresponding clinical data.
-
-Please download the dataset from [here](https://drive.google.com/file/d/1KKbdsmCaA4xKDdOPdTXuxIga4o9ZUrLG/view?usp=sharing), and unzip them by the following scripts:
-
-```bash
-cd code
-mkdir dataset
-unzip paper_dataset.zip -d dataset
-```
-
-## Training
-
-Our codes have supported the following experiments, whose results have been presented in our [paper and supplementary material](https://arxiv.org/abs/2112.02222).
-
-> experiment_index:
-> 
-> 0. N0 vs N+(>0)
-> 1. N+(1-2) vs N+(>2)
-> 2. N0 vs N+(1-2) vs N+(>2)
-> 3. N0 vs N+(1-2)
-> 4. N0 vs N+(>2)
-
-To run any experiment, you can do as this:
-
-```bash
-bash run.sh ${experiment_index}
-```
-
-Furthermore, if you want to try other settings, please see `train.py` for more details.
-
 ## Paper results
 
 The results in our paper are computed based on the [cut-off value in ROC](https://en.wikipedia.org/wiki/Youden%27s_J_statistic#:~:text=Youden%27s%20index%20is,as%20informedness.%5B3%5D). For your convenient reference, we have recomputed the classification results with argmax prediction rule, where the threshold for binary classification is 0.5, and the detailed recomputed results are [here](./recompute_results.md).
