@@ -121,7 +121,7 @@ def train_val_test_binary_class(task_type, epoch, model, data_loader, optimizer,
             patch_path_list.extend([p[0] for p in item["patch_paths"]])
             attention_value_list.extend(attention_value[0].cpu().tolist())
     else:
-        # model.eavl()  # TODO: the BN can not be frozen
+        # model.eavl()
         disable_dropout(model)
         with torch.no_grad():
             for index, item in enumerate(data_loader, start=1):
@@ -188,7 +188,7 @@ def train_val_test_multi_class(task_type, epoch, model, data_loader, optimizer, 
             patch_path_list.extend([p[0] for p in item["patch_paths"]])
             attention_value_list.extend(attention_value[0].cpu().tolist())
     else:
-        # model.eavl()  # TODO: the BN can not be frozen
+        # model.eavl()
         disable_dropout(model)
         with torch.no_grad():
             for index, item in enumerate(data_loader, start=1):
