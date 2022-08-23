@@ -123,6 +123,22 @@ Please download the software from [here](https://drive.google.com/drive/folders/
     <img src="imgs/demo-software.png" alt="demo-software" height="25%" width="25%" />
 </div>
 
+## Citation
+
+If this work helps your research, please cite this paper in your publications.
+
+```
+@article{xu2021predicting,
+  title={Predicting axillary lymph node metastasis in early breast cancer using deep learning on primary tumor biopsy slides},
+  author={Xu, Feng and Zhu, Chuang and Tang, Wenqi and Wang, Ying and Zhang, Yu and Li, Jie and Jiang, Hongchuan and Shi, Zhongyue and Liu, Jun and Jin, Mulan},
+  journal={Frontiers in oncology},
+  volume={11},
+  pages={759007},
+  year={2021},
+  publisher={Frontiers Media SA}
+}
+```
+
 ## Contact
 
 If you encounter any problems, please open an issue without hesitation, and you can also contact us with the following:
