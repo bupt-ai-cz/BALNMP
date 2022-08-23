@@ -149,9 +149,7 @@ if __name__ == "__main__":
         # save model
         if epoch % args.save_epoch_interval == 0:
             save_checkpoint(model, os.path.join(checkpoint_path, f"{epoch}.pth"))
-            if os.path.exists(os.path.join(checkpoint_path, "last.pth")):
-                os.remove(os.path.join(checkpoint_path, "last.pth"))
-            os.symlink(os.path.join(checkpoint_path, f"{epoch}.pth"), os.path.join(checkpoint_path, "last.pth"))
+            save_checkpoint(model, os.path.join(checkpoint_path, f"last.pth"))
 
         print("-" * 120)
 
