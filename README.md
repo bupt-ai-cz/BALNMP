@@ -34,14 +34,12 @@ pip install -r requirements.txt
 
 ### Dataset
 
-For your convenience, we have provided preprocessed WSI patches and corresponding clinical data.
-
-Please download the dataset from [here](https://drive.google.com/file/d/1KKbdsmCaA4xKDdOPdTXuxIga4o9ZUrLG/view?usp=sharing), and unzip them by the following scripts:
+For your convenience, we have provided preprocessed clinical data in `code/dataset`, please download the processed WSI patches from [here](https://drive.google.com/file/d/1wY5KIVixdwzZZq2m0IoqmBLp0YlwBAz6/view?usp=sharing) and unzip them by the following scripts:
 
 ```bash
-cd code
-mkdir dataset
-unzip paper_dataset.zip -d dataset
+cd code/dataset
+# download paper_patches.zip
+unzip paper_patches.zip
 ```
 
 ## Training
