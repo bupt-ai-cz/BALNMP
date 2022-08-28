@@ -22,6 +22,12 @@ Our paper is accepted by [Frontiers in Oncology](https://www.frontiersin.org/art
 
 ## Setup
 
+### Clone this repo
+
+```bash
+git clone https://github.com/bupt-ai-cz/BALNMP.git
+```
+
 ### Environment
 
 Create environment and install dependencies.
@@ -29,7 +35,7 @@ Create environment and install dependencies.
 ```bash
 conda create -n BALNMP python=3.6 -y
 conda activate BALNMP
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 ```
 
 ### Dataset
