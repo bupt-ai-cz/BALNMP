@@ -1,8 +1,6 @@
 """
-1. install vips command line tool (ubuntu 18.04):
-    sudo apt update
-    sudo apt install libvips
-    sudo apt install libvips-tools
+1. install convert:
+    https://github.com/ImageMagick/ImageMagick
 
 2. install tiff-tools (ubuntu 18.04):
     pip install tifftools
@@ -20,7 +18,8 @@ def cvt_jpg2tiff(src_dir, dst_dir):
         dst_file = os.path.join(dst_dir, os.path.basename(src_file).replace('.jpg', '.tiff'))
 
         # convert jpg to tiff
-        cmd = 'vips im_vips2tiff ' + src_file + ' ' + dst_file + ':none,tile:256x256,pyramid'
+
+        cmd = f'convert {src_file} -define tiff64:tile-geometry=256x256 -compress none "ptif:{dst_file}"'
         print(cmd)
         os.system(cmd)
 
