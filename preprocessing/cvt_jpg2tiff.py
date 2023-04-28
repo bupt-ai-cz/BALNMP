@@ -4,6 +4,10 @@
 
 2. install tiff-tools (ubuntu 18.04):
     pip install tifftools
+
+If you have size limit error, try to increase the limit in: /etc/ImageMagick-6/policy.xml
+check: https://github.com/ImageMagick/ImageMagick/issues/396#issuecomment-319569255
+
 """
 import os
 import glob
