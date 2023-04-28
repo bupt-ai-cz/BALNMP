@@ -15,7 +15,7 @@ def cvt_jpg2tiff(src_dir, dst_dir):
         filename = os.path.splitext(os.path.basename(src_file))[0]
         print(filename)
         im = pyvips.Image.new_from_file(src_file)
-        im.write_to_file(dst_file, pyramid=True, tile=True, compression="none")
+        im.write_to_file(dst_file, pyramid=True, tile=True, bigtiff=True, compression="none")
     print('Done.')
 
 if __name__ == '__main__':
