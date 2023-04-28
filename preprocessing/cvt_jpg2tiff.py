@@ -1,17 +1,7 @@
-"""
-1. install convert:
-    https://github.com/ImageMagick/ImageMagick
-
-2. install tiff-tools (ubuntu 18.04):
-    pip install tifftools
-
-If you have size limit error, try to increase the limit in: /etc/ImageMagick-6/policy.xml
-check: https://github.com/ImageMagick/ImageMagick/issues/396#issuecomment-319569255
-
-"""
 import os
 import glob
 import sys
+import pyvips
 
 def cvt_jpg2tiff(src_dir, dst_dir):
     if not os.path.exists(dst_dir):
@@ -22,15 +12,10 @@ def cvt_jpg2tiff(src_dir, dst_dir):
         dst_file = os.path.join(dst_dir, os.path.basename(src_file).replace('.jpg', '.tiff'))
 
         # convert jpg to tiff
-
-        cmd = f'convert {src_file} -define tiff64:tile-geometry=256x256 -compress none "ptif:{dst_file}"'
-        print(cmd)
-        os.system(cmd)
-
-        # add metadata to tiff
-        cmd = 'tifftools set -y -s ImageDescription "Iscan Coreo |AppMag = 20" ' + dst_file
-        print(cmd)
-        os.system(cmd)
+        filename = os.path.splitext(os.path.basename(src_file))[0]
+        print(filename)
+        im = pyvips.Image.new_from_file(src_file)
+        im.write_to_file(dst_file, pyramid=True, tile=True, compression="none")
     print('Done.')
 
 if __name__ == '__main__':
