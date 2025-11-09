@@ -20,7 +20,7 @@ Image.MAX_IMAGE_PIXELS = None
 class BreastDataset(torch.utils.data.Dataset):
     """Pytorch dataset api for loading patches and preprocessed clinical data of breast."""
 
-    def __init__(self, json_path, data_dir_path, clinical_data_path=None, is_preloading=True):
+    def __init__(self, json_path, data_dir_path='C:\datasets\paper_patches', clinical_data_path=None, is_preloading=True):
         """_summary_
 
         Args:
