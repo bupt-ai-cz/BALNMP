@@ -16,8 +16,8 @@ def parser_args():
 
     # dataset
     parser.add_argument("--train_json_path", default="./dataset/json/updated_train-type-0.json")
-    parser.add_argument("--val_json_path", required="./dataset/json/updated_val-type-0.json")
-    parser.add_argument("--test_json_path", required="./dataset/json/updated_test-type-0.json")
+    parser.add_argument("--val_json_path", default="./dataset/json/updated_val-type-0.json")
+    parser.add_argument("--test_json_path", default="./dataset/json/updated_test-type-0.json")
     parser.add_argument("--data_dir_path", required= True) # path to .../ patches
     parser.add_argument("--clinical_data_path", default="./dataset/clinical_data/preprocessed-type-0.xlsx")  
     parser.add_argument("--preloading", action="store_true")
