@@ -1,29 +1,14 @@
 from torch import nn
 import torchvision
-from .googlenet import googlenet
-from .inception import inception_v3
+import os
+import timm
+from huggingface_hub import hf_hub_download
+import torch
 
 BACKBONES = [
-    "vgg11",
-    "vgg11_bn",
-    "vgg13",
-    "vgg13_bn",
-    "vgg16",
     "vgg16_bn",
-    "vgg19",
-    "vgg19_bn",
-    "resnet18",
-    "resnet34",
-    "resnet50",
-    "resnet101",
-    "resnet152",
-    "densenet121",
-    "densenet161",
-    "densenet169",
-    "densenet201",
-    "googlenet",
-    "inception_v3",
-    "alexnet",
+    "uni2-h-freeze",
+    "uni2-h"
 ]
 
 
@@ -35,26 +20,20 @@ class BackboneBuilder(nn.Module):
 
         assert backbone_name in BACKBONES
 
-        if "googlenet" in backbone_name or "inception_v3" in backbone_name:  # These backbone has multiple output
-            complete_backbone = None
-        else:
-            complete_backbone = torchvision.models.__dict__[backbone_name](pretrained=True)
-
         if backbone_name.startswith("vgg"):
-            assert backbone_name in ["vgg11", "vgg11_bn", "vgg13", "vgg13_bn", "vgg16", "vgg16_bn", "vgg19", "vgg19_bn"]
+            complete_backbone = torchvision.models.__dict__[backbone_name](pretrained=True)
+            assert backbone_name in [ "vgg16_bn"]
             self.extractor, self.output_features_size = self.vgg(complete_backbone)
-        elif backbone_name.startswith("resnet"):
-            assert backbone_name in ["resnet18", "resnet34", "resnet50", "resnet101", "resnet152"]
-            self.extractor, self.output_features_size = self.resnet(backbone_name, complete_backbone)
-        elif backbone_name.startswith("densenet"):
-            assert backbone_name in ["densenet121", "densenet161", "densenet169", "densenet201"]
-            self.extractor, self.output_features_size = self.densenet(backbone_name, complete_backbone)
-        elif backbone_name == "googlenet":
-            self.extractor, self.output_features_size = self.googlenet(complete_backbone)
-        elif backbone_name == "inception_v3":
-            self.extractor, self.output_features_size = self.inception_v3(complete_backbone)
-        elif backbone_name == "alexnet":
-            self.extractor, self.output_features_size = self.alexnet(complete_backbone)
+        elif backbone_name == "uni2-h-freeze":
+            self.extractor, self.output_features_size = self.uni2_h()
+            # Freeze UNI2-h weights - use as feature extractor only
+            for param in self.extractor.parameters():
+                param.requires_grad = False
+            print("UNI2-h backbone loaded and frozen (feature extractor mode)")
+        elif backbone_name == "uni2-h":
+            self.extractor, self.output_features_size = self.uni2_h()
+            print("not freezing layers in uni2-h")
+            
         else:
             raise NotImplementedError
 
@@ -68,43 +47,62 @@ class BackboneBuilder(nn.Module):
         extractor = nn.Sequential(*(list(complete_backbone.children())[:-1]))
 
         return extractor, output_features_size
-
-    def resnet(self, backbone_name, complete_backbone):
-        if backbone_name in ["resnet18", "resnet34"]:
-            output_features_size = 512 * 1 * 1
+    
+        
+    def uni2_h(self):
+        """Load UNI2-h model from Hugging Face (frozen for feature extraction)"""
+        output_features_size = 1536 * 1 * 1  # Output: [batch, 1536]
+        
+        #C:\Users\aoara\OneDrive\Documents\repos\CS230\code\models\backbones
+        local_dir = "/content/drive/MyDrive/cs230output/uni2-h/"
+        #os.path.abspath("../code/models/backbones/uni2-h/")
+        os.makedirs(local_dir, exist_ok=True)
+        model_path = os.path.join(local_dir, "pytorch_model.bin")
+    
+        if not os.path.exists(model_path):  
+            try:
+                hf_hub_download(
+                    repo_id="MahmoodLab/UNI2-h",
+                    filename="pytorch_model.bin",
+                    local_dir=local_dir,
+                    force_download=False,
+                    token=True ############## HF_TOKEN
+                )
+                print("✓ Download complete!")
+            except Exception as e:
+                raise RuntimeError(
+                    f" Failed to download UNI2-h model.\n"
+                )
         else:
-            output_features_size = 2048 * 1 * 1
-        extractor = nn.Sequential(*(list(complete_backbone.children())[:-1]))
-
+            print(f"Using cached UNI2-h model from {local_dir}")
+        
+        timm_kwargs = {
+            'model_name': 'vit_giant_patch14_224',
+            'img_size': 224, 
+            'patch_size': 14, 
+            'depth': 24,
+            'num_heads': 24,
+            'init_values': 1e-5, 
+            'embed_dim': 1536,
+            'mlp_ratio': 2.66667 * 2,
+            'num_classes': 0,  # No classification head - feature extraction mode
+            'no_embed_class': True,
+            'mlp_layer': timm.layers.SwiGLUPacked, 
+            'act_layer': torch.nn.SiLU, 
+            'reg_tokens': 8, 
+            'dynamic_img_size': True
+        }
+        
+        #print("Loading UNI2-h model")
+        extractor = timm.create_model(pretrained=False, **timm_kwargs)
+        
+        extractor.load_state_dict(
+            torch.load(model_path, map_location="cpu", weights_only=True), 
+            strict=True
+        )
+        print("UNI2-h weights loaded")
+        
         return extractor, output_features_size
 
-    def googlenet(self, complete_backbone):
-        output_features_size = 1024 * 1 * 1
-        extractor = googlenet(pretrained=True, aux_logits=False)
+   
 
-        return extractor, output_features_size
-
-    def densenet(self, backbone_name, complete_backbone):
-        if backbone_name == "densenet121":
-            output_features_size = 1024 * 7 * 7
-        elif backbone_name == "densenet161":
-            output_features_size = 2208 * 7 * 7
-        elif backbone_name == "densenet169":
-            output_features_size = 1664 * 7 * 7
-        else:
-            output_features_size = 1920 * 7 * 7
-        extractor = nn.Sequential(*(list(complete_backbone.children())[:-1]))
-
-        return extractor, output_features_size
-
-    def inception_v3(self, complete_backbone):
-        output_features_size = 2048 * 1 * 1
-        extractor = inception_v3(pretrained=True, aux_logits=False)
-
-        return extractor, output_features_size
-
-    def alexnet(self, complete_backbone):
-        output_features_size = 256 * 6 * 6
-        extractor = nn.Sequential(*(list(complete_backbone.children())[:-1]))
-
-        return extractor, output_features_size
