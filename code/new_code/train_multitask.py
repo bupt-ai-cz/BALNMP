@@ -2,13 +2,14 @@ import torch
 import argparse
 import os
 from torch.utils.tensorboard import SummaryWriter
-from models.mil_net import Multitask_MILNET
-from models.backbones.backbone_builder import BACKBONES
+from mil_net import Multitask_MILNET
+from backbone_builder import BACKBONES
 from dataset_loader import BreastDataset
 import random
 import warnings
 import numpy as np
 from sklearn.metrics import roc_auc_score, accuracy_score, f1_score
+from tqdm import tqdm
 
 
 def parser_args():

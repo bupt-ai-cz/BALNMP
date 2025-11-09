@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from backbones.backbone_builder import BackboneBuilder
+from backbone_builder import BackboneBuilder
 from attention_aggregator import AttentionAggregator
 
 class MILNetWithClinicalData(nn.Module):
