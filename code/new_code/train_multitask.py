@@ -152,7 +152,8 @@ def train_epoch(model, dataloader, optimizer, metastasis_criterion, status_crite
     status_labels = []
     status_probs = []
     
-    for batch_idx, data in enumerate(dataloader):
+    pbar = tqdm(enumerate(dataloader), total=len(dataloader), desc=f"Epoch {epoch} [TRAIN]", ncols=120)
+    for batch_idx, data in pbar:
         bag_tensor = data["bag_tensor"].cuda()
         clinical_data = data["clinical_data"].cuda()
         metastasis_label = data["metastasis_label"].cuda()
@@ -199,6 +200,12 @@ def train_epoch(model, dataloader, optimizer, metastasis_criterion, status_crite
         status_probs.append(status_prob.cpu().detach().numpy())
         status_preds.append(status_pred.cpu().detach().numpy())
         status_labels.append(status_label.cpu().detach().numpy())
+        
+        pbar.set_postfix({
+            'meta_loss': f'{metastasis_loss.item():.4f}',
+            'status_loss': f'{status_loss.item():.4f}',
+            'total_loss': f'{total_loss.item():.4f}'
+        })
     
     # concat into single numpy arrays
     metastasis_probs = np.concatenate(metastasis_probs)
@@ -230,8 +237,8 @@ def train_epoch(model, dataloader, optimizer, metastasis_criterion, status_crite
        
     
     print(f"[TRAIN] Epoch {epoch} | "
-          f"Meta Loss: {np.mean(metastasis_losses):.4f} | Meta AUC: {metastasis_auc:.4f} | Meta ACC: {metastasis_acc:.4f} | "
-          f"Status Loss: {np.mean(status_losses):.4f} | Status AUC: {status_auc:.4f} | Status ACC: {status_acc:.4f}")
+          f"Meta Loss: {np.mean(metastasis_losses):.4f} | Meta AUC: {metastasis_metrics['auc']:.4f} | Meta ACC: {metastasis_metrics['accuracy']:.4f} | "
+          f"Status Loss: {np.mean(status_losses):.4f} | Status AUC: {status_metrics['auc']:.4f} | Status ACC: {status_metrics['accuracy']:.4f}")
     
     return  metastasis_metrics['auc'], status_metrics['auc']
 
@@ -360,6 +367,7 @@ if __name__ == "__main__":
     
     for epoch in range(1, args.epoch + 1):
      
+        print(f"starts training epoch {epoch}")
         # Training
         train_meta_auc, train_status_auc = train_epoch(
             model, train_loader, optimizer, 
