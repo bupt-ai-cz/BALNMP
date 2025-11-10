@@ -1,7 +1,5 @@
 Dear scholars,
 
-Thanks for your mail.
-
 Our data can be downloaded through the following link:
 
 Google Drive: https://drive.google.com/drive/folders/1HcAgplKwbSZ7ZZl2m6PZdvVF70QJmVuR?usp=sharing
