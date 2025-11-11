@@ -68,6 +68,10 @@ if __name__ == '__main__':
             x, y, width, height = bbox
             tumour_img = wsi_img[y: y + height, x: x + width]
 
+            # pass wrong shape of tumour_img
+            if np.any(np.array(tumour_img.shape) == 0):
+                continue
+
             # fill irrelevant areas with solid colors
             if args.not_filled_other_regions:
                 mask_array = np.zeros((height, width), dtype=np.uint8)
