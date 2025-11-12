@@ -88,7 +88,7 @@ class BackboneBuilder(nn.Module):
                     filename="pytorch_model.bin",
                     local_dir=local_dir,
                     force_download=False,
-                    token=True ############## HF_TOKEN
+                    token= os.getenv("HF_TOKEN") ############## HF_TOKEN
                 )
             except Exception as e:
                 raise RuntimeError(
@@ -115,11 +115,11 @@ class BackboneBuilder(nn.Module):
             'dynamic_img_size': True
         }
         
-        #print("Loading UNI2-h model")
-        extractor = timm.create_model(pretrained=False, **timm_kwargs)
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        extractor = timm.create_model(pretrained=False, **timm_kwargs).to(device)
         
         extractor.load_state_dict(
-            torch.load(model_path, map_location="cpu", weights_only=True), 
+            torch.load(model_path, map_location=device, weights_only=True), 
             strict=True
         )
         print("UNI2-h weights loaded")
@@ -137,6 +137,23 @@ class BackboneBuilder(nn.Module):
         for param in self.extractor.parameters():
             param.requires_grad = True
         print(f"{self.backbone_name} backbone unfrozen")
+    
+    def freeze_layers_ratio(self, ratio=0.5):
+        """
+        Freeze first layer*ratio of backbone
+        Ex: ratio=0.3 freezes the first 30% of layers.
+        """
+        if not (0 < ratio < 1):
+            raise ValueError("ratio must be between 0 and 1")
+
+        all_params = list(self.extractor.parameters())
+        total_layers = len(all_params)
+        freeze_count = int(total_layers * ratio)
+
+        for param in all_params[:freeze_count]:
+            param.requires_grad = False
+        for param in all_params[freeze_count:]:
+            param.requires_grad = True
 
    
 
