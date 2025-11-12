@@ -2,7 +2,7 @@ import torch
 import argparse
 import os
 from torch.utils.tensorboard import SummaryWriter
-from mil_net import Multitask_MILNET, Multitask_MILNET_image_only
+from mil_net import Singletask_MILNET
 from backbone_builder import BACKBONES
 from dataset_loader import BreastDataset
 import random
@@ -28,7 +28,7 @@ def parser_args():
     parser.add_argument("--dropout", type=float, default=0.2)
     parser.add_argument("--freezeHalf", action="store_true", help= "freeze first half layers of backbone")
     parser.add_argument("--freezeAll", action="store_true", help= "freeze all the backbone")
-    parser.add_argument("--image_only", action="store_true", help= "train with only image data")
+    #parser.add_argument("--image_only", action="store_true", help= "train with only image data")
 
     # optimizer
     parser.add_argument("--optimizer", choices=["Adam", "SGD"], default="Adam")
@@ -39,9 +39,7 @@ def parser_args():
     parser.add_argument("--use_scheduler", action="store_true",
                         help="Use learning rate scheduler (from baseline implementation)")
 
-    # multi-task loss weights
-    parser.add_argument("--metastasis_loss_weight", type=float, default=1.0)
-    parser.add_argument("--status_loss_weight", type=float, default=1.0)
+
 
     # output
     parser.add_argument("--log_dir_path", required=True)
@@ -140,45 +138,35 @@ def compute_metrics(labels, probs, preds, task_type='binary'):
     
     return metrics
 
-def train_epoch(model, dataloader, optimizer, metastasis_criterion, status_criterion, args, writer, epoch):
+def train_epoch(model, dataloader, optimizer, metastasis_criterion, args, writer, epoch):
     model.train()
     
     metastasis_losses = []
-    status_losses = []
-    total_losses = []
+    
     
     metastasis_preds = []
     metastasis_labels = []
     metastasis_probs = []
     
-    status_preds = []
-    status_labels = []
-    status_probs = []
+   
     
     pbar = tqdm(enumerate(dataloader), total=len(dataloader), desc=f"Epoch {epoch} [TRAIN]", ncols=120)
     for batch_idx, data in pbar:
         bag_tensor = data["bag_tensor"].cuda()
         clinical_data = data["clinical_data"].cuda()
         metastasis_label = data["metastasis_label"].cuda()
-        status_label = data["status_label"].cuda()
+        
         
         optimizer.zero_grad() # clear gradient
         
         # Forward pass
-        if args.image_only:
-            metastasis_logits, status_logits, _ = model(bag_tensor)
-        else: 
-            metastasis_logits, status_logits, _ = model(bag_tensor, clinical_data)
+        metastasis_logits, _ = model(bag_tensor, clinical_data)
         
         # Calculate losses
         metastasis_loss = metastasis_criterion(metastasis_logits, metastasis_label)
-        status_loss = status_criterion(status_logits, status_label)
         
-        # Weighted total loss
-        total_loss = (args.metastasis_loss_weight * metastasis_loss + 
-                     args.status_loss_weight * status_loss)
         
-        total_loss.backward() # calculate gradient
+        metastasis_loss.backward() # calculate gradient
         
         #  if args.gradient_clip is not None:
         #     torch.nn.utils.clip_grad_norm_(model.parameters(), args.gradient_clip)
@@ -187,150 +175,111 @@ def train_epoch(model, dataloader, optimizer, metastasis_criterion, status_crite
         
         # Record losses
         metastasis_losses.append(metastasis_loss.item())
-        status_losses.append(status_loss.item())
-        total_losses.append(total_loss.item())
+        
         
         # Get predictions
         with torch.no_grad():
             metastasis_prob = torch.softmax(metastasis_logits, dim=1)[:, 1]
             metastasis_pred = torch.argmax(metastasis_logits, dim=1)
             
-            status_prob = torch.softmax(status_logits, dim=1)
-            status_pred = torch.argmax(status_logits, dim=1)
         
         # Store
         metastasis_probs.append(metastasis_prob.cpu().detach().numpy())
         metastasis_preds.append(metastasis_pred.cpu().detach().numpy())
         metastasis_labels.append(metastasis_label.cpu().detach().numpy())
+       
         
-        status_probs.append(status_prob.cpu().detach().numpy())
-        status_preds.append(status_pred.cpu().detach().numpy())
-        status_labels.append(status_label.cpu().detach().numpy())
-        
-        pbar.set_postfix({
-            'meta_loss': f'{metastasis_loss.item():.4f}',
-            'status_loss': f'{status_loss.item():.4f}',
-            'total_loss': f'{total_loss.item():.4f}'
-        })
+  
     
     # concat into single numpy arrays
     metastasis_probs = np.concatenate(metastasis_probs)
     metastasis_preds = np.concatenate(metastasis_preds)
     metastasis_labels = np.concatenate(metastasis_labels)
     
-    status_probs = np.concatenate(status_probs, axis=0)
-    status_preds = np.concatenate(status_preds)
-    status_labels = np.concatenate(status_labels)
     
     # Metastasis metrics
    # Compute metrics
     metastasis_metrics = compute_metrics(
         metastasis_labels, metastasis_probs, metastasis_preds, task_type='binary'
     )
-    status_metrics = compute_metrics(
-        status_labels, status_probs, status_preds, task_type='multiclass'
-    )
+    
     
     # Log to tensorboard
     if writer:
         writer.add_scalar('train/metastasis_loss', np.mean(metastasis_losses), epoch)
-        writer.add_scalar('train/status_loss', np.mean(status_losses), epoch)
-        writer.add_scalar('train/total_loss', np.mean(total_losses), epoch)
         writer.add_scalar('train/metastasis_auc', metastasis_metrics['auc'], epoch)
         writer.add_scalar('train/metastasis_acc', metastasis_metrics['accuracy'], epoch)
-        writer.add_scalar('train/status_auc', status_metrics['auc'], epoch)
-        writer.add_scalar('train/status_acc', status_metrics['accuracy'], epoch)
+     
        
     
     print(f"[TRAIN] Epoch {epoch} | "
-          f"Meta Loss: {np.mean(metastasis_losses):.4f} | Meta AUC: {metastasis_metrics['auc']:.4f} | Meta ACC: {metastasis_metrics['accuracy']:.4f} | "
-          f"Status Loss: {np.mean(status_losses):.4f} | Status AUC: {status_metrics['auc']:.4f} | Status ACC: {status_metrics['accuracy']:.4f}")
+          f"Meta Loss: {np.mean(metastasis_losses):.4f} | Meta AUC: {metastasis_metrics['auc']:.4f} | Meta ACC: {metastasis_metrics['accuracy']:.4f} ")
     
-    return  metastasis_metrics['auc'], status_metrics['auc']
+    return  metastasis_metrics['auc']
 
 
-def evaluate(model, dataloader, metastasis_criterion, status_criterion, args, writer, epoch, phase='val'):
+def evaluate(model, dataloader, metastasis_criterion, args, writer, epoch, phase='val'):
     model.eval()
     
     metastasis_losses = []
-    status_losses = []
     
     metastasis_preds = []
     metastasis_labels = []
     metastasis_probs = []
     
-    status_preds = []
-    status_labels = []
-    status_probs = []
     
     with torch.no_grad():
         for data in dataloader:
             bag_tensor = data["bag_tensor"].cuda()
             clinical_data = data["clinical_data"].cuda()
             metastasis_label = data["metastasis_label"].cuda()
-            status_label = data["status_label"].cuda()
+        
             
             # Forward pass
-            if args.image_only:
-                metastasis_logits, status_logits, _ = model(bag_tensor)
-            else:
-                metastasis_logits, status_logits, _ = model(bag_tensor, clinical_data)
+            metastasis_logits, _ = model(bag_tensor, clinical_data)
             
             # Calculate losses
             metastasis_loss = metastasis_criterion(metastasis_logits, metastasis_label)
-            status_loss = status_criterion(status_logits, status_label)
-            
             metastasis_losses.append(metastasis_loss.item())
-            status_losses.append(status_loss.item())
+            
             
             # Get predictions
             # dim 0 - batch dimension; dim 1 - class unnormalized logits; [:, 1] get probability of positive label (metasasis)
             metastasis_prob = torch.softmax(metastasis_logits, dim=1)[:, 1]
             metastasis_pred = torch.argmax(metastasis_logits, dim=1)
-            # status has three classes 
-            status_prob = torch.softmax(status_logits, dim=1)
-            status_pred = torch.argmax(status_logits, dim=1)
+            
             
             # Store 
             metastasis_probs.append(metastasis_prob.cpu().numpy())
             metastasis_preds.append(metastasis_pred.cpu().numpy())
             metastasis_labels.append(metastasis_label.cpu().numpy())
             
-            status_probs.append(status_prob.cpu().numpy())
-            status_preds.append(status_pred.cpu().numpy())
-            status_labels.append(status_label.cpu().numpy())
+           
     
     # concat into single numpy arrays
     metastasis_probs = np.concatenate(metastasis_probs)
     metastasis_preds = np.concatenate(metastasis_preds)
     metastasis_labels = np.concatenate(metastasis_labels)
     
-    status_probs = np.concatenate(status_probs, axis=0)
-    status_preds = np.concatenate(status_preds)
-    status_labels = np.concatenate(status_labels)
+    
     
     # Metrics
     metastasis_metrics = compute_metrics(
         metastasis_labels, metastasis_probs, metastasis_preds, task_type='binary'
     )
-    status_metrics = compute_metrics(
-        status_labels, status_probs, status_preds, task_type='multiclass'
-    )
+   
     
     # Log to tensorboard
     if writer:
         writer.add_scalar(f'{phase}/metastasis_loss', np.mean(metastasis_losses), epoch)
-        writer.add_scalar(f'{phase}/status_loss', np.mean(status_losses), epoch)
         writer.add_scalar(f'{phase}/metastasis_auc', metastasis_metrics['auc'], epoch)
         writer.add_scalar(f'{phase}/metastasis_acc', metastasis_metrics['accuracy'], epoch)
-        writer.add_scalar(f'{phase}/status_auc', status_metrics['auc'], epoch)
-        writer.add_scalar(f'{phase}/status_acc', status_metrics['accuracy'], epoch)
+ 
     
     print(f"[{phase.upper()}] Epoch {epoch} | "
-          f"Meta Loss: {np.mean(metastasis_losses):.4f} | Meta AUC: {metastasis_metrics['auc']:.4f} | Meta ACC: {metastasis_metrics['accuracy']:.4f} | "
-          f"Status Loss: {np.mean(status_losses):.4f} | Status AUC: {status_metrics['auc']:.4f} | Status ACC: {status_metrics['accuracy']:.4f}")
+          f"Meta Loss: {np.mean(metastasis_losses):.4f} | Meta AUC: {metastasis_metrics['auc']:.4f} | Meta ACC: {metastasis_metrics['accuracy']:.4f}")
     
-    return  metastasis_metrics['auc'], status_metrics['auc']
+    return  metastasis_metrics['auc']
 
 def init_scheduler(args, optimizer):
     """Initialize learning rate scheduler."""
@@ -357,10 +306,9 @@ if __name__ == "__main__":
     train_loader, val_loader, test_loader = init_dataloader(args)
 
     # init model
-    if args.image_only:
-        model = Multitask_MILNET_image_only(backbone_name=args.backbone, dropout=args.dropout)
-    else:
-        model = Multitask_MILNET(backbone_name=args.backbone, dropout=args.dropout)
+    model = Singletask_MILNET(args.backbone, dropout = args.dropout)
+        
+        
     model = model.cuda()
 
     # init optimizer and lr scheduler
@@ -369,11 +317,9 @@ if __name__ == "__main__":
 
     # init loss functions
     metastasis_criterion = torch.nn.CrossEntropyLoss()
-    status_criterion = torch.nn.CrossEntropyLoss()
+    
 
     # training
-    best_combined_auc = 0
-    best_combined_epoch = 0
     best_meta_auc = 0
     best_meta_epoch = 0
     
@@ -381,45 +327,22 @@ if __name__ == "__main__":
      
         print(f"starts training epoch {epoch}")
         # Training
-        train_meta_auc, train_status_auc = train_epoch(
+        train_meta_auc = train_epoch(
             model, train_loader, optimizer, 
-            metastasis_criterion, status_criterion, 
+            metastasis_criterion, 
             args, writer, epoch
         )
         
         # Validation
-        val_meta_auc, val_status_auc = evaluate(
+        val_meta_auc = evaluate(
             model, val_loader,
-            metastasis_criterion, status_criterion,
+            metastasis_criterion,
             args, writer, epoch, phase='val'
         )
         
         if scheduler is not None:
             scheduler.step()
-        
-        # # Testing
-        # test_meta_auc, test_status_auc = evaluate(
-        #     model, test_loader,
-        #     metastasis_criterion, status_criterion,
-        #     args, writer, epoch, phase='test'
-        # )
-
-        # Combined metric for model selection (average of both AUCs)
-        val_combined_auc = (val_meta_auc + val_status_auc) / 2
-
-        # save best model based on combined validation AUC
-        if val_combined_auc > best_combined_auc:
-            best_combined_auc = val_combined_auc
-            best_combined_epoch = epoch
-            torch.save({
-                'epoch': epoch,
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'val_meta_auc': val_meta_auc,
-                'val_status_auc': val_status_auc,
-                'val_combined_auc': val_combined_auc,
-            }, os.path.join(checkpoint_path, "best_combined.pth"))
-            print(f" Saved best combined model at epoch {epoch}")
+      
         
         # save model based on best metasasis AUC
         if val_meta_auc > best_meta_auc:
@@ -429,9 +352,7 @@ if __name__ == "__main__":
                 'epoch': epoch,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
-                'val_meta_auc': val_meta_auc,
-                'val_status_auc': val_status_auc,
-                'val_combined_auc': val_combined_auc,
+                'val_meta_auc': val_meta_auc
             }, os.path.join(checkpoint_path, "best_meta.pth"))
             print(f" Saved metasais model at epoch {epoch}")
              

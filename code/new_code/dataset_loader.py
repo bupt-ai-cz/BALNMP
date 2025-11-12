@@ -97,3 +97,17 @@ class BreastDataset(torch.utils.data.Dataset):
         bag_tensor = torch.cat(patch_tensor_list, dim=0)  # [N, C, H, W]
 
         return bag_tensor
+
+
+
+#  structure of the code adapted from: 
+#     @article{xu2021predicting,
+#   title={Predicting axillary lymph node metastasis in early breast cancer using deep learning on primary tumor biopsy slides},
+#   author={Xu, Feng and Zhu, Chuang and Tang, Wenqi and Wang, Ying and Zhang, Yu and Li, Jie and Jiang, Hongchuan and Shi, Zhongyue and Liu, Jun and Jin, Mulan},
+#   journal={Frontiers in oncology},
+#   volume={11},
+#   pages={759007},
+#   year={2021},
+#   publisher={Frontiers Media SA}
+# }
+# github link: https://github.com/bupt-ai-cz/BALNMP
