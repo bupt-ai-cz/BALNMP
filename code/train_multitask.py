@@ -52,6 +52,14 @@ def parser_args():
     parser.add_argument("--epoch", type=int, default=200)
     parser.add_argument("--seed", type=int, default=8888)
     parser.add_argument("--num_workers", type=int, default=8)
+    
+    # resume training from checkpoint
+    parser.add_argument("--resume_path", type=str, default=None, help="Path to .pth checkpoint to resume from")
+    
+    # add early stopping condition
+    parser.add_argument("--early_stopping", action="store_true",
+                        help="stops when training auc >= 0.99 and training accuracy > 0.9")
+    
 
     args = parser.parse_args()
 
@@ -246,7 +254,7 @@ def train_epoch(model, dataloader, optimizer, metastasis_criterion, status_crite
           f"Meta Loss: {np.mean(metastasis_losses):.4f} | Meta AUC: {metastasis_metrics['auc']:.4f} | Meta ACC: {metastasis_metrics['accuracy']:.4f} | "
           f"Status Loss: {np.mean(status_losses):.4f} | Status AUC: {status_metrics['auc']:.4f} | Status ACC: {status_metrics['accuracy']:.4f}")
     
-    return  metastasis_metrics['auc'], status_metrics['auc']
+    return  metastasis_metrics, status_metrics
 
 
 def evaluate(model, dataloader, metastasis_criterion, status_criterion, args, writer, epoch, phase='val'):
@@ -330,7 +338,7 @@ def evaluate(model, dataloader, metastasis_criterion, status_criterion, args, wr
           f"Meta Loss: {np.mean(metastasis_losses):.4f} | Meta AUC: {metastasis_metrics['auc']:.4f} | Meta ACC: {metastasis_metrics['accuracy']:.4f} | "
           f"Status Loss: {np.mean(status_losses):.4f} | Status AUC: {status_metrics['auc']:.4f} | Status ACC: {status_metrics['accuracy']:.4f}")
     
-    return  metastasis_metrics['auc'], status_metrics['auc']
+    return  metastasis_metrics, status_metrics
 
 def init_scheduler(args, optimizer):
     """Initialize learning rate scheduler."""
@@ -377,22 +385,48 @@ if __name__ == "__main__":
     best_meta_auc = 0
     best_meta_epoch = 0
     
-    for epoch in range(1, args.epoch + 1):
+    start_epoch = 1
+    
+    if args.resume_path is not None:
+        if os.path.isfile(args.resume_path):
+            print(f"Loading checkpoint '{args.resume_path}'")
+            checkpoint = torch.load(args.resume_path)
+            
+            # load start_epoch
+            start_epoch = checkpoint['epoch'] + 1
+            
+            # 2. load States
+            model.load_state_dict(checkpoint['model_state_dict'])
+            optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+            
+            # restore best metrics from saved model
+            best_combined_auc = checkpoint.get('val_combined_auc', 0)
+            best_meta_auc = checkpoint.get('val_meta_auc', 0)
+            
+            print(f"Resumed training from epoch {start_epoch - 1}")
+        else:
+            print(f"No checkpoint found at '{args.resume_path}'")
+    
+    for epoch in range(start_epoch, args.epoch + 1):
      
         print(f"starts training epoch {epoch}")
         # Training
-        train_meta_auc, train_status_auc = train_epoch(
+        train_meta_metrics, train_status_metrics = train_epoch(
             model, train_loader, optimizer, 
             metastasis_criterion, status_criterion, 
             args, writer, epoch
         )
+        train_meta_auc = train_meta_metrics['auc']
+        train_status_auc = train_status_metrics ['auc']
         
         # Validation
-        val_meta_auc, val_status_auc = evaluate(
+        val_meta_metrics, val_status_metrics = evaluate(
             model, val_loader,
             metastasis_criterion, status_criterion,
             args, writer, epoch, phase='val'
         )
+        val_meta_auc = val_meta_metrics['auc']
+        val_status_auc = val_status_metrics['auc']
         
         if scheduler is not None:
             scheduler.step()
@@ -405,8 +439,8 @@ if __name__ == "__main__":
         # )
 
         # Combined metric for model selection (average of both AUCs)
-        val_combined_auc = (val_meta_auc + val_status_auc) / 2
-
+        val_combined_auc = (val_meta_auc + val_status_auc) / 2   
+          
         # save best model based on combined validation AUC
         if val_combined_auc > best_combined_auc:
             best_combined_auc = val_combined_auc
@@ -434,6 +468,21 @@ if __name__ == "__main__":
                 'val_combined_auc': val_combined_auc,
             }, os.path.join(checkpoint_path, "best_meta.pth"))
             print(f" Saved metasais model at epoch {epoch}")
+            
+        # check for early stopping condition
+        if args.early_stopping:
+            if train_meta_auc >= 0.99 and train_meta_metrics['accuracy'] >0.9:
+                print("early stopping condition reached!")
+                torch.save({
+                    'epoch': epoch,
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'val_meta_auc': val_meta_auc,
+                    'val_status_auc': val_status_auc,
+                    'val_combined_auc': val_combined_auc,
+                }, os.path.join(checkpoint_path, "last_model.pth"))
+                print(f" Saved last model at epoch {epoch}")
+                break
              
         # save every 10 epochs
         if epoch % args.save_epoch_interval == 0:

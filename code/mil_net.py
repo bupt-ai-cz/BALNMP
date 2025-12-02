@@ -117,7 +117,7 @@ class Multitask_MILNET_image_only(nn.Module):
 
 
 class Singletask_MILNET(nn.Module):
-    """Single-task MIL model predicting both metastasis ONLY. Use as a comparison for Multitask_MILNET
+    """Single-task MIL model predicting metastasis ONLY. Use as a comparison for Multitask_MILNET
       Uses separate classification heads WITHOUT shared layers after attention module.
     """
 
@@ -151,6 +151,44 @@ class Singletask_MILNET(nn.Module):
         
 
         return metastasis_result, attention
+    
+
+class Singletask_MILNET_status(nn.Module):
+    """Single-task MIL model predicting status ONLY. Use as a comparison for Multitask_MILNET
+      Uses separate classification heads WITHOUT shared layers after attention module.
+    """
+
+    def __init__(self, backbone_name, clinical_data_size=5, expand_times=10, dropout = 0.2):
+        super().__init__()
+
+        print('training with image and clinical data')
+        self.clinical_data_size = clinical_data_size
+        self.expand_times = expand_times  # expanding clinical data to match image features in dimensions
+
+        self.image_feature_extractor = BackboneBuilder(backbone_name)
+        self.attention_aggregator = AttentionAggregator(self.image_feature_extractor.output_features_size, 1)  # inner_feature_size=1
+        shared_feature_size = self.attention_aggregator.L + self.clinical_data_size * self.expand_times
+        
+        # using num_classes = 3
+        # num_classes =  3 # there are three classes - N0 --> 0 ;  N+(1-2) --> 1 ;  N+(>2)  --> 2
+        self.status_classifier = nn.Sequential(
+            nn.Linear(shared_feature_size, 64),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(64, 3)
+        )
+
+        
+    def forward(self, bag_data, clinical_data):
+        bag_data = bag_data.squeeze(0)  # [1 (batch size), N, C, H, W] --> [N, C, H, W], remove the batch dimension
+        patch_features = self.image_feature_extractor(bag_data)
+        aggregated_feature, attention = self.attention_aggregator(patch_features)
+        # adding clinical data features, expand by 10 times
+        fused_data = torch.cat([aggregated_feature, clinical_data.repeat(1, self.expand_times).float()], dim=-1)  # feature fusion
+        status_result = self.status_classifier(fused_data)
+        
+
+        return status_result, attention
 
 
 #  baseline model attributed to: 
