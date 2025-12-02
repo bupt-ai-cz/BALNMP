@@ -176,7 +176,7 @@ if __name__ == "__main__":
     # 3. Load Checkpoint
     if os.path.isfile(args.checkpoint_path):
         print(f"Loading weights from: {args.checkpoint_path}")
-        checkpoint = torch.load(args.checkpoint_path)
+        checkpoint = torch.load(args.checkpoint_path, weights_only=False)
         model.load_state_dict(checkpoint['model_state_dict'])
     else:
         raise FileNotFoundError(f"No checkpoint found at {args.checkpoint_path}")

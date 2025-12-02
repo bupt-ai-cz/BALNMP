@@ -333,7 +333,7 @@ if __name__ == "__main__":
     if args.resume_path is not None:
         if os.path.isfile(args.resume_path):
             print(f"Loading checkpoint '{args.resume_path}'")
-            checkpoint = torch.load(args.resume_path)
+            checkpoint = torch.load(args.resume_path, weights_only=False)
             
             # load start_epoch
             start_epoch = checkpoint['epoch'] + 1
