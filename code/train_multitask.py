@@ -2,7 +2,7 @@ import torch
 import argparse
 import os
 from torch.utils.tensorboard import SummaryWriter
-from mil_net import Multitask_MILNET, Multitask_MILNET_image_only
+from mil_net import Multitask_MILNET, Multitask_MILNET_image_only, Multitask_MILNET_shared_layer
 from backbone_builder import BACKBONES
 from dataset_loader import BreastDataset
 import random
@@ -59,6 +59,8 @@ def parser_args():
     # add early stopping condition
     parser.add_argument("--early_stopping", action="store_true",
                         help="stops when training auc >= 0.99 and training accuracy > 0.9")
+    
+    parser.add_argument("--shared_layer", action= "store_true", help= "train multi-task model with a shared layer after attention module")
     
 
     args = parser.parse_args()
@@ -367,6 +369,9 @@ if __name__ == "__main__":
     # init model
     if args.image_only:
         model = Multitask_MILNET_image_only(backbone_name=args.backbone, dropout=args.dropout)
+    elif args.shared_layer:
+        print("training multi-task model with shared layer")
+        model = Multitask_MILNET_shared_layer(backbone_name=args.backbone, dropout=args.dropout)
     else:
         model = Multitask_MILNET(backbone_name=args.backbone, dropout=args.dropout)
     model = model.cuda()

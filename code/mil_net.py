@@ -114,6 +114,71 @@ class Multitask_MILNET_image_only(nn.Module):
         status_result = self.status_classifier(aggregated_feature)
 
         return metastasis_result, status_result, attention
+    
+## multi-task classifier branches with 2 shared FC layers after attention
+class Multitask_MILNET_shared_layer(nn.Module):
+    """Multi-task MIL model predicting both metastasis and status.
+      Uses 2 shared FC layers after attention module, then separate classification heads.
+    """
+
+    def __init__(self, backbone_name, clinical_data_size=5, expand_times=10, dropout=0.2):
+        super().__init__()
+
+        print('training with image and clinical data')
+        self.clinical_data_size = clinical_data_size
+        self.expand_times = expand_times  # expanding clinical data to match image features in dimensions
+
+        self.image_feature_extractor = BackboneBuilder(backbone_name)
+        self.attention_aggregator = AttentionAggregator(self.image_feature_extractor.output_features_size, 1)  # inner_feature_size=1
+        fused_feature_size = self.attention_aggregator.L + self.clinical_data_size * self.expand_times
+        
+        # Two shared FC layers after attention module
+        self.shared_fc1 = nn.Linear(fused_feature_size, 128)
+        self.shared_relu1 = nn.ReLU()
+        self.shared_dropout1 = nn.Dropout(dropout)
+        
+        self.shared_fc2 = nn.Linear(128, 64)
+        self.shared_relu2 = nn.ReLU()
+        self.shared_dropout2 = nn.Dropout(dropout)
+        
+        # Task-specific classification heads (now taking 64 features from shared layers)
+        # using num_classes = 2
+        self.metastasis_classifier = nn.Sequential(
+            nn.Linear(64, 32),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(32, 2)
+        )
+        # num_classes = 3 # there are three classes - N0 --> 0 ;  N+(1-2) --> 1 ;  N+(>2)  --> 2
+        self.status_classifier = nn.Sequential(
+            nn.Linear(64, 32),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(32, 3)
+        ) 
+        
+
+    def forward(self, bag_data, clinical_data):
+        bag_data = bag_data.squeeze(0)  # [1 (batch size), N, C, H, W] --> [N, C, H, W], remove the batch dimension
+        patch_features = self.image_feature_extractor(bag_data)
+        aggregated_feature, attention = self.attention_aggregator(patch_features)
+        # adding clinical data features, expand by 10 times
+        fused_data = torch.cat([aggregated_feature, clinical_data.repeat(1, self.expand_times).float()], dim=-1)  # feature fusion
+        
+        # Pass through 2 shared FC layers
+        shared_features = self.shared_fc1(fused_data)
+        shared_features = self.shared_relu1(shared_features)
+        shared_features = self.shared_dropout1(shared_features)
+        
+        shared_features = self.shared_fc2(shared_features)
+        shared_features = self.shared_relu2(shared_features)
+        shared_features = self.shared_dropout2(shared_features)
+        
+        # Task-specific classification
+        metastasis_result = self.metastasis_classifier(shared_features)
+        status_result = self.status_classifier(shared_features)
+
+        return metastasis_result, status_result, attention
 
 
 class Singletask_MILNET(nn.Module):
