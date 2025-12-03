@@ -133,13 +133,14 @@ class Multitask_MILNET_shared_layer(nn.Module):
         fused_feature_size = self.attention_aggregator.L + self.clinical_data_size * self.expand_times
         
         # Two shared FC layers after attention module
-        self.shared_fc1 = nn.Linear(fused_feature_size, 128)
-        self.shared_relu1 = nn.ReLU()
-        self.shared_dropout1 = nn.Dropout(dropout)
-        
-        self.shared_fc2 = nn.Linear(128, 64)
-        self.shared_relu2 = nn.ReLU()
-        self.shared_dropout2 = nn.Dropout(dropout)
+        self.shared_layers = nn.Sequential(
+            nn.Linear(fused_feature_size, 128),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Dropout(dropout)
+        )
         
         # Task-specific classification heads (now taking 64 features from shared layers)
         # using num_classes = 2
@@ -165,14 +166,9 @@ class Multitask_MILNET_shared_layer(nn.Module):
         # adding clinical data features, expand by 10 times
         fused_data = torch.cat([aggregated_feature, clinical_data.repeat(1, self.expand_times).float()], dim=-1)  # feature fusion
         
-        # Pass through 2 shared FC layers
-        shared_features = self.shared_fc1(fused_data)
-        shared_features = self.shared_relu1(shared_features)
-        shared_features = self.shared_dropout1(shared_features)
+        # Pass through shared FC layers
         
-        shared_features = self.shared_fc2(shared_features)
-        shared_features = self.shared_relu2(shared_features)
-        shared_features = self.shared_dropout2(shared_features)
+        shared_features = self.shared_layers(fused_data)
         
         # Task-specific classification
         metastasis_result = self.metastasis_classifier(shared_features)

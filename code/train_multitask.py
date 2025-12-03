@@ -368,11 +368,13 @@ if __name__ == "__main__":
 
     # init model
     if args.image_only:
+        print('training image only multi-task model')
         model = Multitask_MILNET_image_only(backbone_name=args.backbone, dropout=args.dropout)
     elif args.shared_layer:
         print("training multi-task model with shared layer")
         model = Multitask_MILNET_shared_layer(backbone_name=args.backbone, dropout=args.dropout)
     else:
+        print('training multi-task model')
         model = Multitask_MILNET(backbone_name=args.backbone, dropout=args.dropout)
     model = model.cuda()
 
