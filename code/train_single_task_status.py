@@ -310,6 +310,18 @@ if __name__ == "__main__":
         
         if scheduler is not None:
             scheduler.step()
+            
+        if train_status_auc >= 0.99:
+            print("early stopping condition achieved!")
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'val_status_auc': val_status_auc
+            }, os.path.join(checkpoint_path, "last_model.pth"))
+            print(f"Saved last model at epoch {epoch}")
+            break
+            
         
         # save model based on best status AUC
         if val_status_auc > best_status_auc:
